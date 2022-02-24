@@ -1,0 +1,28 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="gecko.ui">
+
+    <queries>
+        <intent>
+            <category android:name="android.intent.category.LAUNCHER" />
+            <action android:name="android.intent.action.MAIN" />
+        </intent>
+    </queries>
+
+    <application>
+
+        <activity
+            android:name="gecko.ui.GeckoActivity"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_gecko"
+            android:label="Gecko!"
+            android:taskAffinity="gecko.ui.${applicationId}"
+            android:theme="@style/Theme.Gecko">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="gecko_statusBarColor">#00000000</color>
+    <color name="gecko_navigationBarColor">#00000000</color>
+
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel target="1.8">
+      <module name="gecko.app" target="11" />
+      <module name="gecko.buildSrc" target="11" />
+      <module name="gecko.buildSrc.main" target="11" />
+      <module name="gecko.buildSrc.test" target="11" />
+      <module name="gecko.gecko-android" target="11" />
+      <module name="gecko.gecko-android-compose" target="11" />
+      <module name="gecko.gecko-android-example" target="11" />
+      <module name="gecko.gecko-android-ui" target="11" />
+      <module name="gecko.gecko-android-xml" target="11" />
+      <module name="gecko.gecko-core.main" target="8" />
+      <module name="gecko.gecko-core.test" target="8" />
+      <module name="gecko.gecko-crashlytics" target="11" />
+      <module name="gecko.gecko-crashlytics.main" target="8" />
+      <module name="gecko.gecko-crashlytics.test" target="8" />
+      <module name="gecko.gecko-okhttp.main" target="8" />
+      <module name="gecko.gecko-okhttp.test" target="8" />
+      <module name="gecko.gecko-ui" target="11" />
+      <module name="gecko.gecko-ui.main" target="8" />
+      <module name="gecko.gecko-ui.test" target="8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

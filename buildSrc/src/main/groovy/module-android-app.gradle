@@ -1,0 +1,14 @@
+plugins {
+    id 'com.android.application'
+    id 'module-android'
+}
+
+android {
+
+    defaultConfig {
+
+        minSdk 21
+
+    }
+
+}

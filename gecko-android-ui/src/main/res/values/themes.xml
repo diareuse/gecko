@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Base.Theme.Gecko" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@color/gecko_statusBarColor</item>
+        <item name="android:navigationBarColor">@color/gecko_statusBarColor</item>
+    </style>
+
+    <style name="Base.Theme.Gecko.Platform"></style>
+
+    <style name="Theme.Gecko" parent="Base.Theme.Gecko.Platform"></style>
+
+</resources>

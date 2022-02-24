@@ -1,0 +1,27 @@
+plugins {
+    id 'module-android-app'
+}
+
+android {
+
+    defaultConfig {
+        applicationId = "gecko.android.example"
+        versionName = "evaluation.only"
+        versionCode = 1
+    }
+
+    buildFeatures {
+        dataBinding = true
+    }
+
+}
+
+dependencies {
+
+    implementation project(":gecko-android-ui")
+    implementation project(":gecko-android")
+    implementation project(":gecko-core")
+
+    implementation "androidx.appcompat:appcompat:1.4.1"
+
+}
