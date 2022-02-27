@@ -16,7 +16,7 @@ class GeckoBuilder private constructor(
 
         fun getDefault() = GeckoFormatter(MetadataAdapterAscii()).newBuilder()
             .step { GeckoCompressor(it) }
-            .step { GeckoBase64Wrapper(it, Base64.getEncoder()) }
+            .step { GeckoBase64Wrapper(it) { b -> Base64.getUrlEncoder().encode(b) } }
             .step { GeckoUrlAssembly(it, "diareuse.github.io/gecko") }
 
     }
