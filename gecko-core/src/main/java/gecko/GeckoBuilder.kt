@@ -12,9 +12,9 @@ class GeckoBuilder private constructor(
 
     companion object {
 
-        fun Gecko.newBuilder() = GeckoBuilder(this)
+        fun Gecko.buildUpon() = GeckoBuilder(this)
 
-        fun getDefault() = GeckoFormatter(MetadataAdapterAscii()).newBuilder()
+        fun getDefault() = GeckoFormatter(MetadataAdapterAscii()).buildUpon()
             .step { GeckoCompressor(it) }
             .step { GeckoBase64Wrapper(it) { b -> Base64.getUrlEncoder().encode(b) } }
             .step { GeckoUrlAssembly(it, "diareuse.github.io/gecko") }
