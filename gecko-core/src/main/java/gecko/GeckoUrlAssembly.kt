@@ -7,7 +7,7 @@ class GeckoUrlAssembly(
     private val domain: String
 ) : Gecko {
 
-    override fun process(metadata: NetworkMetadata) = "https://$domain/?q=%s"
+    override fun process(metadata: NetworkMetadata) = "https://$domain/%s"
         .format(source.process(metadata).decodeToString())
         .encodeToByteArray()
 
