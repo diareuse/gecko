@@ -1,7 +1,6 @@
 package gecko.android.adapter
 
 import gecko.android.model.PersistedResponse
-import gecko.android.tooling.readToString
 import gecko.model.Response
 
 internal class ResponseAdapterDefault : ResponseAdapter {
@@ -14,7 +13,7 @@ internal class ResponseAdapterDefault : ResponseAdapter {
             protocol = protocol,
             headers = headers,
             length = length,
-            body = body.readToString()
+            body = body.decodeToString()
         )
     }
 

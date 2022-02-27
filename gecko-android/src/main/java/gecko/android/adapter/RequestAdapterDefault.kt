@@ -1,7 +1,6 @@
 package gecko.android.adapter
 
 import gecko.android.model.PersistedRequest
-import gecko.android.tooling.readToString
 import gecko.model.Request
 
 internal class RequestAdapterDefault : RequestAdapter {
@@ -13,7 +12,7 @@ internal class RequestAdapterDefault : RequestAdapter {
             url = url,
             headers = headers,
             length = length,
-            body = body.readToString()
+            body = body.decodeToString()
         )
     }
 
