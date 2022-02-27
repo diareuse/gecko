@@ -4,8 +4,8 @@ import gecko.android.model.PersistedCall
 
 internal class CallAdapterDefault : CallAdapter {
 
-    override fun adapt(output: ByteArray): PersistedCall {
-        return PersistedCall(link = output.decodeToString())
+    override fun adapt(output: String): PersistedCall {
+        return PersistedCall(link = output)
     }
 
 }

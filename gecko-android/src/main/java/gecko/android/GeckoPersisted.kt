@@ -6,6 +6,8 @@ import gecko.android.adapter.CallAdapter
 import gecko.android.adapter.RequestAdapter
 import gecko.android.adapter.ResponseAdapter
 import gecko.model.NetworkMetadata
+import gecko.model.Tail
+import gecko.model.asString
 
 class GeckoPersisted internal constructor(
     private val gecko: Gecko,
@@ -38,9 +40,9 @@ class GeckoPersisted internal constructor(
     private val request by lazy { database.request() }
     private val response by lazy { database.response() }
 
-    override fun process(metadata: NetworkMetadata) = gecko.process(metadata).also {
+    override fun process(metadata: NetworkMetadata): Tail = gecko.process(metadata).also {
         database.runInTransaction {
-            val id = call.insert(adapterCall.adapt(it))
+            val id = call.insert(adapterCall.adapt(it.asString()))
             request.insert(adapterRequest.adapt(id, metadata.request))
             response.insert(adapterResponse.adapt(id, metadata.response))
         }
