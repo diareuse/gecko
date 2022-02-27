@@ -10,11 +10,14 @@ class GeckoCompressor(
 
     override fun process(metadata: NetworkMetadata): ByteArray {
         val output = source.process(metadata)
-        val byteOutput = ByteArrayOutputStream()
-        val gzipOutput = GZIPOutputStream(byteOutput, true)
-        gzipOutput.write(output)
-        gzipOutput.flush()
-        return byteOutput.toByteArray()
+        val compressed = ByteArrayOutputStream(output.size).use { byteOutput ->
+            GZIPOutputStream(byteOutput).use { gzipOutput ->
+                gzipOutput.write(output)
+                gzipOutput.finish()
+            }
+            byteOutput.toByteArray()
+        }
+        return compressed
     }
 
 }
