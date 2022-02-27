@@ -38,7 +38,8 @@ class App : Application() {
         url = "https://api.github.com/v3/foo/bar/",
         headers = listOf("Authorization" to "Bearer", "User-Agent" to "Gecko"),
         length = 0,
-        body = { it.write(nextBytes(nextInt(10, 1000))) }
+        contentType = "application/json",
+        body = nextBytes(nextInt(10, 1000))
     )
 
     private fun generateResponse() = Response(
@@ -47,7 +48,8 @@ class App : Application() {
         protocol = "HTTP/2",
         headers = listOf("X-Hello" to "*waves*"),
         length = 0,
-        body = { it.write(nextBytes(nextInt(10, 1000))) },
+        contentType = "application/json",
+        body = nextBytes(nextInt(10, 1000)),
     )
 
     companion object {
