@@ -1,25 +1,18 @@
 package gecko.android.example
 
 import android.app.Application
-import android.util.Log
 import gecko.Gecko
-import gecko.GeckoBuilder
-import gecko.GeckoLogging
-import gecko.android.GeckoPersisted
+import gecko.android.builder.geckoAndroid
 import gecko.model.NetworkMetadata
 import gecko.model.Request
 import gecko.model.Response
-import kotlin.random.Random.Default.nextBytes
 import kotlin.random.Random.Default.nextInt
 
 class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        gecko = GeckoBuilder.getDefault()
-            .step { GeckoPersisted(it, this) }
-            .step { GeckoLogging(it) { output -> Log.v("Gecko", output) } }
-            .build()
+        gecko = geckoAndroid()
 
         Thread {
             repeat(100) {
@@ -33,29 +26,34 @@ class App : Application() {
         response = generateResponse()
     )
 
-    private fun generateRequest() = Request(
+    private fun generateRequest(body: String = nextString()) = Request(
         method = httpMethods.random(),
         url = "https://api.github.com/v3/foo/bar/",
         headers = listOf("Authorization" to "Bearer", "User-Agent" to "Gecko"),
-        length = 0,
+        length = body.length.toLong(),
         contentType = "application/json",
-        body = nextBytes(nextInt(10, 1000))
+        body = body.encodeToByteArray()
     )
 
-    private fun generateResponse() = Response(
+    private fun generateResponse(body: String = nextString()) = Response(
         code = (200 until 600).random(),
         message = "OK",
         protocol = "HTTP/2",
         headers = listOf("X-Hello" to "*waves*"),
-        length = 0,
+        length = body.length.toLong(),
         contentType = "application/json",
-        body = nextBytes(nextInt(10, 1000)),
+        body = body.encodeToByteArray()
     )
 
     companion object {
 
         lateinit var gecko: Gecko
-        val httpMethods = listOf("GET", "POST", "HEAD", "DELETE", "PUT", "PATCH")
+        private val httpMethods = listOf("GET", "POST", "HEAD", "DELETE", "PUT", "PATCH")
+        private val charPool = ('a'..'z') + ('A'..'Z') + ('0'..'9')
+
+        private fun nextString(length: Int = nextInt(10, 10000)) = (0 until length).asSequence()
+            .map { charPool.random() }
+            .joinToString(separator = "")
 
     }
 
