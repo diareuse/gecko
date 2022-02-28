@@ -1,4 +1,9 @@
 plugins {
     id 'com.android.library'
     id 'module-android'
+    id 'com.vanniktech.maven.publish'
+}
+
+mavenPublish {
+    sonatypeHost = "S01"
 }

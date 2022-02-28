@@ -1,6 +1,5 @@
 plugins {
     id 'module-jvm'
-    id 'com.vanniktech.maven.publish'
 }
 
 dependencies {
