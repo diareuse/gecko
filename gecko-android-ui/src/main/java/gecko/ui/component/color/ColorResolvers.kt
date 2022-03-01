@@ -9,11 +9,11 @@ import androidx.compose.ui.graphics.luminance
 fun rememberHttpCodeColorResolver() = remember {
     ColorResolver<Int> {
         when (it) {
-            in 200..299 -> Color.Green
-            in 300..399 -> Color.Cyan
-            in 400..499 -> Color.Yellow
-            in 500..599 -> Color.Red
-            else -> Color.Blue
+            in 200..299 -> Color(0xFFB9F6CA)
+            in 300..399 -> Color(0xFF84FFFF)
+            in 400..499 -> Color(0xFFFFE57F)
+            in 500..599 -> Color(0xFFFF8A80)
+            else -> Color(0xFF000000)
         }
     }
 }
