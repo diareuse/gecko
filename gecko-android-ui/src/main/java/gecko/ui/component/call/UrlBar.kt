@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import gecko.ui.component.color.ColorResolver
 import gecko.ui.component.color.rememberColorOnColorResolver
+import gecko.ui.component.color.rememberHttpCodeColorResolver
 import gecko.ui.component.color.rememberHttpMethodColorResolver
 import gecko.ui.theme.GeckoTheme
 
@@ -26,12 +27,25 @@ import gecko.ui.theme.GeckoTheme
 fun UrlBar(
     uri: Uri,
     method: String,
+    code: Int,
     modifier: Modifier = Modifier,
     backgroundResolver: ColorResolver<String> = rememberHttpMethodColorResolver(),
-    textColorResolver: ColorResolver<Color> = rememberColorOnColorResolver()
+    textColorResolver: ColorResolver<Color> = rememberColorOnColorResolver(),
+    codeColorResolver: ColorResolver<Int> = rememberHttpCodeColorResolver()
 ) {
     Row(modifier = modifier) {
         val backgroundColor = backgroundResolver.getColor(method)
+        val codeColor = codeColorResolver.getColor(code)
+        Text(
+            modifier = Modifier
+                .background(codeColor, RoundedCornerShape(4.dp))
+                .padding(4.dp, 0.dp),
+            text = code.toString(),
+            style = MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.Black,
+            color = textColorResolver.getColor(codeColor)
+        )
+        Spacer(modifier = Modifier.width(8.dp))
         Text(
             modifier = Modifier
                 .background(backgroundColor, RoundedCornerShape(4.dp))
@@ -61,6 +75,6 @@ fun UrlBar(
 @Composable
 private fun UrlBarPreview() {
     GeckoTheme {
-        UrlBar(uri = "https://google.com/v1/foo/bar".toUri(), method = "DELETE")
+        UrlBar(uri = "https://google.com/v1/foo/bar".toUri(), method = "DELETE", code = 200)
     }
 }

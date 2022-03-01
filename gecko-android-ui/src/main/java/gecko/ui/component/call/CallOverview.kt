@@ -24,6 +24,7 @@ fun CallOverview(
     code: Int,
     url: String,
     modifier: Modifier = Modifier,
+    maxLines: Int = 1
 ) {
     val uri = remember(url) { Uri.parse(url) }
     val dateFormat = remember { DateFormat.getDateInstance() }
@@ -40,7 +41,13 @@ fun CallOverview(
             modifier = Modifier.padding(16.dp, 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            UriBar(modifier = Modifier.weight(1f), uri = uri, method = method, code = code)
+            UriBar(
+                modifier = Modifier.weight(1f),
+                uri = uri,
+                method = method,
+                code = code,
+                maxLines = maxLines
+            )
             DateTime(time = time, date = date)
         }
     }

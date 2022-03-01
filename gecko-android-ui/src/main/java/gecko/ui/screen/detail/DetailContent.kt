@@ -82,7 +82,8 @@ fun DetailContent(viewModel: DetailViewModel) {
             timestamp = metadata.createdAt,
             method = metadata.requestMethod,
             code = metadata.responseCode,
-            url = metadata.requestUrl
+            url = metadata.requestUrl,
+            maxLines = Int.MAX_VALUE
         )
     }
 

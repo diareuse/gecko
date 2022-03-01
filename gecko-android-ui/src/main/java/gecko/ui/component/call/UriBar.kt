@@ -17,12 +17,13 @@ fun UriBar(
     uri: Uri,
     method: String,
     code: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    maxLines: Int = 1
 ) {
     Column(modifier = modifier, verticalArrangement = Arrangement.Center) {
-        UrlBar(uri = uri, method = method)
+        UrlBar(uri = uri, method = method, code = code)
         Spacer(modifier = Modifier.height(4.dp))
-        PathBar(uri = uri, code = code)
+        PathBar(uri = uri, maxLines = maxLines)
     }
 }
 
