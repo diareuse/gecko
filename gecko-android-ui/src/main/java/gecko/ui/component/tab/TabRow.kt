@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.Placeable
@@ -34,9 +35,9 @@ fun TabRow(
     },
     content: @Composable () -> Unit
 ) {
-    var indicatorOffset by remember { mutableStateOf(0) }
+    var indicatorOffset by rememberSaveable { mutableStateOf(0) }
     val indicatorOffsetAnimated by animateIntAsState(targetValue = indicatorOffset)
-    var indicatorWidth by remember { mutableStateOf(0) }
+    var indicatorWidth by rememberSaveable { mutableStateOf(0) }
     val indicatorWidthAnimated by animateIntAsState(targetValue = indicatorWidth)
     Layout(
         modifier = modifier,
