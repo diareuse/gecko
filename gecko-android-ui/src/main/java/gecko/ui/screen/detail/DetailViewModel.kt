@@ -5,7 +5,7 @@ import gecko.android.model.GeckoData
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 
-class DetailViewModel(val id: String) : ViewModel() {
+internal class DetailViewModel(val id: String) : ViewModel() {
 
     private val _metadata = MutableStateFlow<GeckoData?>(null)
     val metadata = _metadata

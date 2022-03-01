@@ -19,7 +19,7 @@ import gecko.ui.theme.GeckoTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Toolbar(
+internal fun Toolbar(
     title: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     navigationIcon: @Composable () -> Unit = {},

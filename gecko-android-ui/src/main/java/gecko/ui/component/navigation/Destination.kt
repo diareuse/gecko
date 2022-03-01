@@ -3,7 +3,7 @@ package gecko.ui.component.navigation
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 
-data class Destination(
+internal data class Destination(
     val route: String
 ) {
 

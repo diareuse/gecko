@@ -7,29 +7,29 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
-interface ViewWorker<Model> {
+internal interface ViewWorker<Model> {
 
     suspend fun execute(model: Model)
 
 }
 
-suspend fun <Model> Iterable<ViewWorker<Model>>.execute(model: Model) {
+internal suspend fun <Model> Iterable<ViewWorker<Model>>.execute(model: Model) {
     forEach { it.execute(model) }
 }
 
-suspend fun <Model> Array<out ViewWorker<Model>>.execute(model: Model) {
+internal suspend fun <Model> Array<out ViewWorker<Model>>.execute(model: Model) {
     forEach { it.execute(model) }
 }
 
 @Composable
-fun <Model> Worker(model: Model, vararg workers: ViewWorker<Model>) {
+internal fun <Model> Worker(model: Model, vararg workers: ViewWorker<Model>) {
     LaunchedEffect(model) {
         workers.execute(model)
     }
 }
 
 @Composable
-fun <Model : ViewModel> Worker(model: Model, vararg workers: ViewWorker<Model>) {
+internal fun <Model : ViewModel> Worker(model: Model, vararg workers: ViewWorker<Model>) {
     DisposableEffect(model) {
         model.viewModelScope.launch {
             workers.execute(model)

@@ -2,9 +2,9 @@ package gecko.ui.theme
 
 import androidx.compose.runtime.staticCompositionLocalOf
 
-data class ExtendedColors(val colors: List<CustomColor>)
+internal data class ExtendedColors(val colors: List<CustomColor>)
 
-val initializeExtended = ExtendedColors(listOf())
-val LocalExtendedColors = staticCompositionLocalOf {
+internal val initializeExtended = ExtendedColors(listOf())
+internal val LocalExtendedColors = staticCompositionLocalOf {
     initializeExtended
 }

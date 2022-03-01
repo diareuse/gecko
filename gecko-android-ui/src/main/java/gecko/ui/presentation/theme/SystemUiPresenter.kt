@@ -7,7 +7,7 @@ import androidx.compose.ui.graphics.Color
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
-fun SystemUIEffect() {
+internal fun SystemUIEffect() {
     val controller = rememberSystemUiController()
     val isDarkTheme = isSystemInDarkTheme()
     SideEffect {

@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-class DashboardViewModel : ViewModel() {
+internal class DashboardViewModel : ViewModel() {
 
     private val _pagingData = MutableStateFlow<PagingData<GeckoMetadata>>(PagingData.empty())
     private val _appName = MutableStateFlow("")

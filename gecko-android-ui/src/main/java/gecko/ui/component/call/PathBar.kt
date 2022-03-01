@@ -15,7 +15,7 @@ import androidx.core.net.toUri
 import gecko.ui.theme.GeckoTheme
 
 @Composable
-fun PathBar(
+internal fun PathBar(
     uri: Uri,
     modifier: Modifier = Modifier,
     maxLines: Int = 1

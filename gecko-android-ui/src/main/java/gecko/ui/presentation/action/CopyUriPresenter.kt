@@ -9,7 +9,7 @@ import androidx.core.content.getSystemService
 import gecko.ui.presentation.CallableAction
 
 @Composable
-fun actionCopyUri(): CallableAction<Uri> {
+internal fun actionCopyUri(): CallableAction<Uri> {
     val context = LocalContext.current
     return CallableAction {
         val manager = context.getSystemService<ClipboardManager>() ?: return@CallableAction

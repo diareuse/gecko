@@ -16,7 +16,7 @@ import gecko.ui.screen.detail.DetailContentLoader
 import gecko.ui.screen.detail.DetailViewModel
 
 @Composable
-fun DetailView(entry: NavBackStackEntry) {
+internal fun DetailView(entry: NavBackStackEntry) {
     val id = entry.arguments?.getString("id")
         ?: throw IllegalStateException("Detail requires an \"id\" argument")
     val viewModel: DetailViewModel = viewModel(key = id, factory = DetailViewModelFactory(id))

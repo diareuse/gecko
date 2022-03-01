@@ -12,7 +12,7 @@ import gecko.ui.screen.dashboard.DashboardNameLoader
 import gecko.ui.screen.dashboard.DashboardViewModel
 
 @Composable
-fun DashboardView(@Suppress("UNUSED_PARAMETER") entry: NavBackStackEntry) {
+internal fun DashboardView(@Suppress("UNUSED_PARAMETER") entry: NavBackStackEntry) {
     val viewModel: DashboardViewModel = viewModel()
     val context = LocalContext.current
     DashboardContent(viewModel)

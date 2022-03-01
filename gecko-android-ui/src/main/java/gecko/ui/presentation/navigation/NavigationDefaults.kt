@@ -2,7 +2,7 @@ package gecko.ui.presentation.navigation
 
 import androidx.compose.runtime.Composable
 
-object NavigationDefaults {
+internal object NavigationDefaults {
 
     @Composable
     fun backClick(): () -> Unit {

@@ -9,10 +9,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import gecko.ui.component.navigation.Destination
 
-val LocalNavController = compositionLocalOf<NavController> { throw IllegalStateException() }
+internal val LocalNavController =
+    compositionLocalOf<NavController> { throw IllegalStateException() }
 
 @Composable
-fun ScreenNavigation(
+internal fun ScreenNavigation(
     startDestination: Destination,
     vararg screens: NavGraphBuilder.() -> Unit
 ) {

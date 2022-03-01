@@ -18,7 +18,7 @@ import java.text.DateFormat
 import java.util.*
 
 @Composable
-fun CallOverview(
+internal fun CallOverview(
     timestamp: Date,
     method: String,
     code: Int,

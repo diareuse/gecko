@@ -13,7 +13,7 @@ import androidx.core.net.toUri
 import gecko.ui.theme.GeckoTheme
 
 @Composable
-fun UriBar(
+internal fun UriBar(
     uri: Uri,
     method: String,
     code: Int,

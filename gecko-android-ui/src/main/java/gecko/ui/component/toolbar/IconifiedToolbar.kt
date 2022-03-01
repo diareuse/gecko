@@ -20,7 +20,7 @@ import gecko.ui.R
 import gecko.ui.theme.GeckoTheme
 
 @Composable
-fun IconifiedToolbar(
+internal fun IconifiedToolbar(
     title: String,
     icon: Painter,
     modifier: Modifier = Modifier,

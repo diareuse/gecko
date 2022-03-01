@@ -8,7 +8,7 @@ import gecko.ui.presentation.dashboard.DashboardWorker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class DashboardNameLoader(
+internal class DashboardNameLoader(
     private val context: Context
 ) : DashboardWorker {
 

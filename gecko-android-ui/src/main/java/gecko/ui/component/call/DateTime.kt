@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import gecko.ui.theme.GeckoTheme
 
 @Composable
-fun DateTime(
+internal fun DateTime(
     time: String,
     date: String,
     modifier: Modifier = Modifier,

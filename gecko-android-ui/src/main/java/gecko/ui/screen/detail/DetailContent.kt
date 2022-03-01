@@ -31,11 +31,11 @@ import gecko.ui.presentation.action.actionOpenUri
 import gecko.ui.presentation.navigation.NavigationDefaults
 import gecko.ui.presentation.unwrap
 
-const val TabRequest = 0
-const val TabResponse = 1
+internal const val TabRequest = 0
+internal const val TabResponse = 1
 
 @Composable
-fun rememberHeaders(
+internal fun rememberHeaders(
     metadata: GeckoData?,
     position: Int
 ) = remember(metadata, position) {
@@ -47,7 +47,7 @@ fun rememberHeaders(
 }
 
 @Composable
-fun rememberBody(
+internal fun rememberBody(
     metadata: GeckoData?,
     position: Int
 ) = remember(metadata, position) {
@@ -59,7 +59,7 @@ fun rememberBody(
 }
 
 @Composable
-fun DetailContent(viewModel: DetailViewModel) {
+internal fun DetailContent(viewModel: DetailViewModel) {
     val metadata by viewModel.metadata.collectAsState()
     var selectedTabPosition by rememberSaveable { mutableStateOf(0) }
 
@@ -214,7 +214,7 @@ private fun DetailTabs(
 }
 
 @Composable
-fun TitledSection(
+internal fun TitledSection(
     title: String,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit
@@ -231,7 +231,7 @@ fun TitledSection(
 }
 
 @Composable
-fun PreformattedBody(
+internal fun PreformattedBody(
     text: String,
     modifier: Modifier = Modifier
 ) {

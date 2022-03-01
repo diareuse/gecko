@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 
-object TabDefaults {
+internal object TabDefaults {
 
     @Composable
     fun colors(

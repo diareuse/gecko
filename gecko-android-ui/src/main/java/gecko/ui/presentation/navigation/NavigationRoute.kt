@@ -6,7 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import gecko.ui.component.navigation.Destination
 
-fun NavGraphBuilder.composable(
+internal fun NavGraphBuilder.composable(
     destination: Destination,
     screen: @Composable (NavBackStackEntry) -> Unit
 ) = composable(

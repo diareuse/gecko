@@ -25,7 +25,7 @@ import gecko.ui.component.color.rememberHttpMethodColorResolver
 import gecko.ui.theme.GeckoTheme
 
 @Composable
-fun UrlBar(
+internal fun UrlBar(
     uri: Uri,
     method: String,
     code: Int,

@@ -7,7 +7,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import gecko.ui.theme.GeckoTheme
 
 @Composable
-fun ThemeEffect(content: @Composable () -> Unit) {
+internal fun ThemeEffect(content: @Composable () -> Unit) {
     GeckoTheme {
         CompositionLocalProvider(LocalContentColor provides MaterialTheme.colorScheme.onSurface) {
             content()

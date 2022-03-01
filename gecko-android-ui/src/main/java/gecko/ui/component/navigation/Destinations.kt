@@ -1,6 +1,6 @@
 package gecko.ui.component.navigation
 
-object Destinations {
+internal object Destinations {
 
     val Dashboard = Destination("/dashboard")
     fun Dashboard() = Dashboard.asDestination()

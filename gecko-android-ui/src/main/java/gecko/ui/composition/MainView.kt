@@ -9,7 +9,7 @@ import gecko.ui.presentation.theme.SystemUIEffect
 import gecko.ui.presentation.theme.ThemeEffect
 
 @Composable
-fun MainView() {
+internal fun MainView() {
     SystemUIEffect()
 
     @Composable

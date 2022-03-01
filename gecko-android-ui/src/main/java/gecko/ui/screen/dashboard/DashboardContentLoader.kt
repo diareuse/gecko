@@ -7,7 +7,7 @@ import gecko.android.paging.GeckoPagingSource
 import gecko.ui.presentation.dashboard.DashboardWorker
 import kotlinx.coroutines.flow.collectLatest
 
-class DashboardContentLoader(
+internal class DashboardContentLoader(
     private val context: Context
 ) : DashboardWorker {
 

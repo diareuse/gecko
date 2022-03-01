@@ -4,7 +4,7 @@ import gecko.android.GeckoSource
 import gecko.android.getMetadataSuspendCatching
 import gecko.ui.presentation.detail.DetailWorker
 
-class DetailContentLoader(
+internal class DetailContentLoader(
     private val source: GeckoSource
 ) : DetailWorker {
 

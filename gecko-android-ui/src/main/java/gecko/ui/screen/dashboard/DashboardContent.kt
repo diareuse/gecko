@@ -27,7 +27,7 @@ import gecko.ui.component.toolbar.IconifiedToolbar
 import gecko.ui.presentation.navigation.LocalNavController
 
 @Composable
-fun DashboardContent(viewModel: DashboardViewModel) {
+internal fun DashboardContent(viewModel: DashboardViewModel) {
     val controller = LocalNavController.current
     val appName by viewModel.appName.collectAsState()
 

@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 
-object ToolbarDefaults {
+internal object ToolbarDefaults {
     val navigationIconColor @Composable get() = LocalContentColor.current
     val titleColor @Composable get() = LocalContentColor.current
     val actionsColor @Composable get() = LocalContentColor.current

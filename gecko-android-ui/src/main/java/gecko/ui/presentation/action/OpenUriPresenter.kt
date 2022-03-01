@@ -7,7 +7,7 @@ import androidx.compose.ui.platform.LocalContext
 import gecko.ui.presentation.CallableAction
 
 @Composable
-fun actionOpenUri(): CallableAction<Uri> {
+internal fun actionOpenUri(): CallableAction<Uri> {
     val context = LocalContext.current
     return CallableAction {
         var intent = Intent(Intent.ACTION_VIEW)

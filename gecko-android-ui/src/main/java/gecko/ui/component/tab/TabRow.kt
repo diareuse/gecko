@@ -20,7 +20,7 @@ import gecko.ui.theme.GeckoTheme
 import kotlin.math.max
 
 @Composable
-fun TabRow(
+internal fun TabRow(
     selectedPosition: Int,
     modifier: Modifier = Modifier,
     indicator: @Composable () -> Unit = {

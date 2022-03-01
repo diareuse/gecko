@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Tab(
+internal fun Tab(
     text: String,
     selected: Boolean,
     modifier: Modifier = Modifier,

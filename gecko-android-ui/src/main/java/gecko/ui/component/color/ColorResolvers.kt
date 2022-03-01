@@ -6,7 +6,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 
 @Composable
-fun rememberHttpCodeColorResolver() = remember {
+internal fun rememberHttpCodeColorResolver() = remember {
     ColorResolver<Int> {
         when (it) {
             in 200..299 -> Color(0xFFB9F6CA)
@@ -19,7 +19,7 @@ fun rememberHttpCodeColorResolver() = remember {
 }
 
 @Composable
-fun rememberHttpMethodColorResolver() = remember {
+internal fun rememberHttpMethodColorResolver() = remember {
     ColorResolver<String> {
         when {
             "get".equals(it, true) -> Color(0xFF89D1B6)
@@ -37,7 +37,7 @@ fun rememberHttpMethodColorResolver() = remember {
 }
 
 @Composable
-fun rememberColorOnColorResolver() = remember {
+internal fun rememberColorOnColorResolver() = remember {
     ColorResolver<Color> {
         if (it.luminance() <= 0.5f) Color.White
         else Color.Black

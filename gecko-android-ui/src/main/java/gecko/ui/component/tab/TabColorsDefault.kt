@@ -3,7 +3,7 @@ package gecko.ui.component.tab
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-data class TabColorsDefault(
+internal data class TabColorsDefault(
     private val selectedTextColor: Color,
     private val defaultTextColor: Color
 ) : TabColors {

@@ -13,7 +13,7 @@ import com.google.accompanist.insets.statusBarsPadding
 import gecko.ui.R
 
 @Composable
-fun NavigationToolbar(
+internal fun NavigationToolbar(
     title: String,
     icon: Painter = painterResource(id = R.drawable.ic_gecko_back),
     onNavigationClick: () -> Unit,
