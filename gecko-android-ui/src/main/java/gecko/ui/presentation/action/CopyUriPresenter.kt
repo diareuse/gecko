@@ -2,19 +2,18 @@ package gecko.ui.presentation.action
 
 import android.content.ClipData
 import android.content.ClipboardManager
-import android.content.Context
 import android.net.Uri
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.getSystemService
-import gecko.ui.presentation.SimplePresenter
+import gecko.ui.presentation.CallableAction
 
-class CopyUriPresenter(
-    private val context: Context
-) : SimplePresenter<Uri> {
-
-    override fun present(model: Uri) {
-        val manager = context.getSystemService<ClipboardManager>() ?: return
-        val data = ClipData.newRawUri("Gecko Link", model)
+@Composable
+fun actionCopyUri(): CallableAction<Uri> {
+    val context = LocalContext.current
+    return CallableAction {
+        val manager = context.getSystemService<ClipboardManager>() ?: return@CallableAction
+        val data = ClipData.newRawUri("Gecko Link", it)
         manager.setPrimaryClip(data)
     }
-
 }

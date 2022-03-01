@@ -11,7 +11,7 @@ class DashboardContentLoader(
     private val context: Context
 ) : DashboardWorker {
 
-    override fun present(model: DashboardViewModel): suspend () -> Unit = {
+    override suspend fun execute(model: DashboardViewModel) {
         val config = PagingConfig(pageSize = 10)
         val pager = Pager(config) { GeckoPagingSource(context.applicationContext) }.flow
         pager.collectLatest {

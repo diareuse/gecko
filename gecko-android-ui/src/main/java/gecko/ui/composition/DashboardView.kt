@@ -1,20 +1,24 @@
 package gecko.ui.composition
 
-import android.content.Context
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavBackStackEntry
-import gecko.ui.presentation.ViewPresenter
-import gecko.ui.presentation.ViewPresenterConcat
-import gecko.ui.presentation.ViewPresenterViewModelEffect
+import gecko.ui.presentation.Worker
 import gecko.ui.screen.dashboard.DashboardContent
 import gecko.ui.screen.dashboard.DashboardContentLoader
 import gecko.ui.screen.dashboard.DashboardNameLoader
-import gecko.ui.screen.dashboard.DashboardScreen
+import gecko.ui.screen.dashboard.DashboardViewModel
 
-fun DashboardView(context: Context): ViewPresenter<NavBackStackEntry> {
-    val features = ViewPresenterConcat(
-        DashboardContent(),
-        ViewPresenterViewModelEffect(DashboardContentLoader(context)),
-        ViewPresenterViewModelEffect(DashboardNameLoader(context)),
+@Composable
+fun DashboardView(@Suppress("UNUSED_PARAMETER") entry: NavBackStackEntry) {
+    val viewModel: DashboardViewModel = viewModel()
+    val context = LocalContext.current
+    DashboardContent(viewModel)
+    Worker(
+        viewModel,
+        remember(viewModel, context) { DashboardContentLoader(context) },
+        remember(viewModel, context) { DashboardNameLoader(context) }
     )
-    return DashboardScreen(features)
 }

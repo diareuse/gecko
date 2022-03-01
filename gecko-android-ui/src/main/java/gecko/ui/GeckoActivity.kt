@@ -1,6 +1,7 @@
 package gecko.ui
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import gecko.ui.composition.MainView
@@ -11,7 +12,9 @@ class GeckoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        MainView(this).present(this)
+        setContent {
+            MainView()
+        }
     }
 
 }

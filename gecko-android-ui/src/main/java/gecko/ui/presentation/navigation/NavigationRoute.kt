@@ -1,24 +1,16 @@
 package gecko.ui.presentation.navigation
 
+import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import gecko.ui.component.navigation.Destination
-import gecko.ui.presentation.SimplePresenter
-import gecko.ui.presentation.ViewPresenter
 
-class NavigationRoute(
-    private val destination: Destination,
-    private val screen: ViewPresenter<NavBackStackEntry>
-) : SimplePresenter<NavGraphBuilder> {
-
-    override fun present(model: NavGraphBuilder) {
-        model.composable(
-            route = destination.route,
-            arguments = destination.namedArguments.toList()
-        ) {
-            screen.present(it).invoke()
-        }
-    }
-
-}
+fun NavGraphBuilder.composable(
+    destination: Destination,
+    screen: @Composable (NavBackStackEntry) -> Unit
+) = composable(
+    route = destination.route,
+    arguments = destination.namedArguments.toList(),
+    content = screen
+)

@@ -6,11 +6,12 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -24,85 +25,112 @@ import gecko.ui.component.tab.Tab
 import gecko.ui.component.tab.TabDefaults
 import gecko.ui.component.tab.TabRow
 import gecko.ui.component.toolbar.NavigationToolbar
-import gecko.ui.presentation.SimplePresenter
-import gecko.ui.presentation.detail.DetailPresenter
+import gecko.ui.component.toolbar.ToolbarAction
+import gecko.ui.presentation.action.actionCopyUri
+import gecko.ui.presentation.action.actionOpenUri
 import gecko.ui.presentation.navigation.NavigationDefaults
+import gecko.ui.presentation.unwrap
 
-@OptIn(ExperimentalMaterial3Api::class)
-class DetailContent(
-    private val link: SimplePresenter<Uri>,
-    private val copy: SimplePresenter<Uri>
-) : DetailPresenter {
+const val TabRequest = 0
+const val TabResponse = 1
 
-    override fun present(model: DetailViewModel): @Composable () -> Unit = {
-        val metadata by model.metadata.collectAsState()
-        var selectedTabPosition by rememberSaveable { mutableStateOf(0) }
-        LazyColumn(
-            contentPadding = rememberInsetsPaddingValues(insets = LocalWindowInsets.current.navigationBars)
-        ) {
-            item {
-                DetailToolbar(
-                    metadata = metadata,
-                    onLinkClick = { link.present(it) },
-                    onCopyClick = { copy.present(it) }
-                )
-            }
+@Composable
+fun rememberHeaders(
+    metadata: GeckoData?,
+    position: Int
+) = remember(metadata, position) {
+    when (position) {
+        TabRequest -> metadata?.requestHeaders
+        TabResponse -> metadata?.responseHeaders
+        else -> emptySet()
+    }.orEmpty()
+}
 
-            val metadata = metadata
-            if (metadata != null) item {
-                Box(modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp)) {
-                    CallOverview(
-                        timestamp = metadata.createdAt,
-                        method = metadata.requestMethod,
-                        code = metadata.responseCode,
-                        url = metadata.requestUrl
-                    )
-                }
-            }
+@Composable
+fun rememberBody(
+    metadata: GeckoData?,
+    position: Int
+) = remember(metadata, position) {
+    when (position) {
+        TabRequest -> metadata?.requestBody
+        TabResponse -> metadata?.responseBody
+        else -> ""
+    }.orEmpty()
+}
 
-            item {
-                DetailTabs(
-                    modifier = Modifier.padding(top = 16.dp),
-                    selectedTab = selectedTabPosition,
-                    onSelectedTabChange = { selectedTabPosition = it }
-                )
-                Box(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .fillMaxWidth()
-                        .height(1.dp)
-                        .background(MaterialTheme.colorScheme.surfaceVariant)
-                )
-            }
+@Composable
+fun DetailContent(viewModel: DetailViewModel) {
+    val metadata by viewModel.metadata.collectAsState()
+    var selectedTabPosition by rememberSaveable { mutableStateOf(0) }
 
+    @Composable
+    fun Toolbar() = DetailToolbar(
+        metadata = metadata,
+        onLinkClick = actionOpenUri().unwrap(),
+        onCopyClick = actionCopyUri().unwrap()
+    )
 
-            metadata ?: return@LazyColumn
-            val (headers, body) = when (selectedTabPosition) {
-                0 -> metadata.run { requestHeaders to requestBody }
-                1 -> metadata.run { responseHeaders to responseBody }
-                else -> throw IllegalArgumentException()
-            }
-
-            item {
-                TitledSection(title = "Headers") {
-                    PreformattedBody(
-                        modifier = Modifier.fillMaxWidth(),
-                        text = headers.joinToString(separator = "\n")
-                    )
-                }
-            }
-
-            item {
-                TitledSection(title = "Body") {
-                    PreformattedBody(
-                        modifier = Modifier.fillMaxWidth(),
-                        text = body
-                    )
-                }
-            }
-        }
+    @Composable
+    fun Overview(metadata: GeckoData) = Box(
+        modifier = Modifier.padding(
+            top = 16.dp,
+            start = 16.dp,
+            end = 16.dp
+        )
+    ) {
+        CallOverview(
+            timestamp = metadata.createdAt,
+            method = metadata.requestMethod,
+            code = metadata.responseCode,
+            url = metadata.requestUrl
+        )
     }
 
+    @Composable
+    fun Tabs() {
+        DetailTabs(
+            modifier = Modifier.padding(top = 16.dp),
+            selectedTab = selectedTabPosition,
+            onSelectedTabChange = { selectedTabPosition = it }
+        )
+        Box(
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .fillMaxWidth()
+                .height(1.dp)
+                .background(MaterialTheme.colorScheme.surfaceVariant)
+        )
+    }
+
+    @Composable
+    fun Headers(headers: Set<String>) = TitledSection(title = "Headers") {
+        PreformattedBody(
+            modifier = Modifier.fillMaxWidth(),
+            text = headers.joinToString(separator = "\n")
+        )
+    }
+
+    @Composable
+    fun Body(body: String) = TitledSection(title = "Body") {
+        PreformattedBody(
+            modifier = Modifier.fillMaxWidth(),
+            text = body
+        )
+    }
+
+    LazyColumn(
+        contentPadding = rememberInsetsPaddingValues(insets = LocalWindowInsets.current.navigationBars)
+    ) {
+        item { Toolbar() }
+
+        val metadata = metadata
+        if (metadata != null)
+            item { Overview(metadata) }
+
+        item { Tabs() }
+        item { Headers(rememberHeaders(metadata, selectedTabPosition)) }
+        item { Body(rememberBody(metadata, selectedTabPosition)) }
+    }
 }
 
 @Composable
@@ -116,25 +144,28 @@ private fun DetailToolbar(
         title = "",
         onNavigationClick = onNavigationClick,
         actions = {
-            Row {
-                IconButton(onClick = {
-                    onLinkClick.invoke(metadata?.link?.toUri() ?: return@IconButton)
-                }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_gecko_link),
-                        contentDescription = "Visit Link"
-                    )
-                }
-                IconButton(onClick = {
-                    onCopyClick.invoke(metadata?.link?.toUri() ?: return@IconButton)
-                }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_gecko_copy),
-                        contentDescription = "Copy"
-                    )
-                }
-            }
+            DetailToolbarActions(
+                link = metadata?.link?.toUri() ?: return@NavigationToolbar,
+                onCopyClick = onCopyClick,
+                onLinkClick = onLinkClick
+            )
         }
+    )
+}
+
+@Composable
+private fun DetailToolbarActions(
+    link: Uri,
+    onCopyClick: (Uri) -> Unit,
+    onLinkClick: (Uri) -> Unit
+) = Row {
+    ToolbarAction(
+        onClick = { onLinkClick.invoke(link) },
+        resourceId = R.drawable.ic_gecko_link
+    )
+    ToolbarAction(
+        onClick = { onCopyClick.invoke(link) },
+        resourceId = R.drawable.ic_gecko_copy
     )
 }
 
@@ -160,20 +191,20 @@ private fun DetailTabs(
     ) {
         Tab(
             modifier = Modifier
-                .clickable { onSelectedTabChange(0) }
+                .clickable { onSelectedTabChange(TabRequest) }
                 .padding(16.dp, 4.dp),
             text = "Request",
-            selected = selectedTab == 0,
+            selected = selectedTab == TabRequest,
             styles = TabDefaults.textStyles(
                 selectedTextStyle = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
             )
         )
         Tab(
             modifier = Modifier
-                .clickable { onSelectedTabChange(1) }
+                .clickable { onSelectedTabChange(TabResponse) }
                 .padding(16.dp, 4.dp),
             text = "Response",
-            selected = selectedTab == 1,
+            selected = selectedTab == TabResponse,
             styles = TabDefaults.textStyles(
                 selectedTextStyle = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
             )
