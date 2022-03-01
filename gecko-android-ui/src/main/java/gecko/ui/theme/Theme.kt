@@ -5,7 +5,6 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
@@ -112,37 +111,15 @@ private fun HarmonizedTheme(
     }
 
     val colorsWithHarmonizedError = setupErrorColors(colors, !useDarkTheme)
-    val extendedColors = setupCustomColors(colors, !useDarkTheme)
 
-    CompositionLocalProvider(LocalExtendedColors provides extendedColors) {
-        MaterialTheme(
-            colorScheme = colorsWithHarmonizedError,
-            typography = AppTypography,
-            content = content
-        )
-    }
+    MaterialTheme(
+        colorScheme = colorsWithHarmonizedError,
+        typography = AppTypography,
+        content = content
+    )
 }
 
 // ---
-
-private fun setupCustomColors(
-    colorScheme: ColorScheme,
-    isLight: Boolean
-): ExtendedColors {
-    initializeExtended.colors.forEach { customColor ->
-        // Retrieve record
-        val shouldHarmonize = customColor.harmonized
-        // Blend or not
-        if (shouldHarmonize) {
-            val blendedColor =
-                MaterialColors.harmonize(customColor.color.toArgb(), colorScheme.primary.toArgb())
-            customColor.roles = MaterialColors.getColorRoles(blendedColor, isLight)
-        } else {
-            customColor.roles = MaterialColors.getColorRoles(customColor.color.toArgb(), isLight)
-        }
-    }
-    return initializeExtended
-}
 
 private fun setupErrorColors(colorScheme: ColorScheme, isLight: Boolean): ColorScheme {
     val harmonizedError =
