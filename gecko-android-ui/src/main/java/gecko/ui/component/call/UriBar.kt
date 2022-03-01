@@ -31,6 +31,10 @@ fun UriBar(
 @Composable
 private fun UriBarPreview() {
     GeckoTheme {
-        UriBar(uri = "https://google.com/v1/foo/bar".toUri(), method = "DELETE", 200)
+        UriBar(
+            uri = "https://google.google.google.google.google.google.com/v1/foo/bar/foo/bar/foo/bar/foo/bar/foo/bar/foo/bar".toUri(),
+            method = "DELETE",
+            200
+        )
     }
 }
