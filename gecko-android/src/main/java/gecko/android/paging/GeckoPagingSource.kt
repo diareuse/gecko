@@ -34,7 +34,6 @@ class GeckoPagingSource internal constructor(
     override fun getRefreshKey(state: PagingState<Int, GeckoMetadata>) = 0
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, GeckoMetadata> {
-        println("loading page with key: ${params.key}")
         return call
             .selectSuspendCatching(params.key ?: 0, params.loadSize)
             .map { it.map(adapter::adapt) }

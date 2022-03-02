@@ -2,13 +2,13 @@ package gecko.ui.screen.dashboard
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
@@ -18,6 +18,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.google.accompanist.insets.LocalWindowInsets
+import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.rememberInsetsPaddingValues
 import gecko.android.model.GeckoMetadata
 import gecko.ui.R
@@ -30,20 +31,33 @@ import gecko.ui.presentation.navigation.LocalNavController
 internal fun DashboardContent(viewModel: DashboardViewModel) {
     val controller = LocalNavController.current
     val appName by viewModel.appName.collectAsState()
+    val items = viewModel.pagingData.collectAsLazyPagingItems()
+    var offset by remember { mutableStateOf(0) }
 
-    Box {
-        var offset by remember { mutableStateOf(0) }
+    Box(modifier = Modifier.fillMaxSize()) {
         DashboardList(
             offset = offset,
-            items = viewModel.pagingData.collectAsLazyPagingItems(),
+            items = items,
             onItemClick = { controller.navigate(Destinations.CallDetail(it.toString())) }
         )
         DashboardToolbar(
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.surface.copy(alpha = .9f))
                 .onSizeChanged { offset = it.height },
-            appName = appName
+            appName = appName,
         )
+        FloatingActionButton(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .navigationBarsPadding()
+                .padding(16.dp),
+            onClick = items::refresh
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_gecko_refresh),
+                contentDescription = "Refresh"
+            )
+        }
     }
 }
 
