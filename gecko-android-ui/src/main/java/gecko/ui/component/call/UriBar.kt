@@ -15,13 +15,11 @@ import gecko.ui.theme.GeckoTheme
 @Composable
 internal fun UriBar(
     uri: Uri,
-    method: String,
-    code: Int,
     modifier: Modifier = Modifier,
     maxLines: Int = 1
 ) {
     Column(modifier = modifier, verticalArrangement = Arrangement.Center) {
-        UrlBar(uri = uri, method = method, code = code)
+        UrlBar(uri = uri)
         Spacer(modifier = Modifier.height(4.dp))
         PathBar(uri = uri, maxLines = maxLines)
     }
@@ -32,9 +30,7 @@ internal fun UriBar(
 private fun UriBarPreview() {
     GeckoTheme {
         UriBar(
-            uri = "https://google.google.google.google.google.google.com/v1/foo/bar/foo/bar/foo/bar/foo/bar/foo/bar/foo/bar".toUri(),
-            method = "DELETE",
-            200
+            uri = "https://google.google.google.google.google.google.com/v1/foo/bar/foo/bar/foo/bar/foo/bar/foo/bar/foo/bar".toUri()
         )
     }
 }
