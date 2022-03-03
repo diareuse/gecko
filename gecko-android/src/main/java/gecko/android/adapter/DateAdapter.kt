@@ -3,7 +3,7 @@ package gecko.android.adapter
 import androidx.room.TypeConverter
 import java.util.*
 
-class DateAdapter {
+internal class DateAdapter {
 
     @TypeConverter
     fun toDatabase(date: Date) = date.time

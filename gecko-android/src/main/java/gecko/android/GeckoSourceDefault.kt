@@ -2,7 +2,7 @@ package gecko.android
 
 import gecko.android.adapter.MetadataAdapter
 
-class GeckoSourceDefault internal constructor(
+internal class GeckoSourceDefault(
     private val call: DaoCall,
     private val adapter: MetadataAdapter
 ) : GeckoSource {
