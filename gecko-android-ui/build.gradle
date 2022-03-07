@@ -39,6 +39,7 @@ dependencies {
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.23.0"
     implementation "com.google.accompanist:accompanist-insets:0.23.0"
     implementation "androidx.paging:paging-runtime:3.1.0"
+    implementation "androidx.startup:startup-runtime:1.1.1"
     debugImplementation "androidx.compose.ui:ui-tooling:1.1.1"
 
 }
