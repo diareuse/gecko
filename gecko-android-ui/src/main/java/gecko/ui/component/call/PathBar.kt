@@ -14,6 +14,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.net.toUri
 import gecko.ui.theme.GeckoTheme
 
+private val Uri.pathWithQuery: String
+    get() {
+        val builder = StringBuilder(path.orEmpty())
+        if (!encodedQuery.isNullOrEmpty()) {
+            builder.append('?')
+            builder.append(encodedQuery)
+        }
+        return builder.toString()
+    }
+
 @Composable
 internal fun PathBar(
     uri: Uri,
@@ -22,7 +32,7 @@ internal fun PathBar(
 ) {
     Row(modifier = modifier.height(IntrinsicSize.Max)) {
         Text(
-            text = uri.path.orEmpty(),
+            text = uri.pathWithQuery,
             style = MaterialTheme.typography.bodyMedium,
             maxLines = maxLines.coerceAtLeast(1),
             overflow = TextOverflow.Ellipsis
@@ -36,6 +46,8 @@ private fun PathBarPreview() {
     GeckoTheme {
         Column {
             PathBar(uri = "https://google.com/v1/foo".toUri())
+            PathBar(uri = "https://google.com/v1/foo?bar=foo".toUri())
+            PathBar(uri = "https://google.com/v1/foo?bar=foo&barfoo=1".toUri())
         }
     }
 }

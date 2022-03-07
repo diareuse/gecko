@@ -30,7 +30,7 @@ internal fun UriBar(
 private fun UriBarPreview() {
     GeckoTheme {
         UriBar(
-            uri = "https://google.google.google.google.google.google.com/v1/foo/bar/foo/bar/foo/bar/foo/bar/foo/bar/foo/bar".toUri()
+            uri = "https://google.google.google.google.google.google.com/v1/foo/bar?query=foo&bar=0".toUri()
         )
     }
 }
