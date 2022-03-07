@@ -2,6 +2,7 @@ package gecko.ui.component.call
 
 import android.net.Uri
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.LocalContentColor
@@ -28,7 +29,7 @@ internal fun UrlBar(
                 shape = RoundedCornerShape(4.dp)
             )
             .padding(4.dp, 0.dp),
-        text = uri.host.orEmpty(),
+        text = uri.authority.orEmpty(),
         color = LocalContentColor.current.copy(alpha = .6f),
         style = MaterialTheme.typography.bodyMedium,
         fontWeight = FontWeight.Bold,
@@ -41,6 +42,9 @@ internal fun UrlBar(
 @Composable
 private fun UrlBarPreview() {
     GeckoTheme {
-        UrlBar(uri = "https://google.com/v1/foo/bar".toUri())
+        Column {
+            UrlBar(uri = "https://google.com/v1/foo/bar".toUri())
+            UrlBar(uri = "https://foo@google.com/v1/foo/bar".toUri())
+        }
     }
 }
