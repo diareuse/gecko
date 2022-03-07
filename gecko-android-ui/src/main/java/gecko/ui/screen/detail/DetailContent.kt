@@ -30,6 +30,8 @@ import gecko.ui.presentation.action.actionCopyUri
 import gecko.ui.presentation.action.actionOpenUri
 import gecko.ui.presentation.navigation.NavigationDefaults
 import gecko.ui.presentation.unwrap
+import org.json.JSONArray
+import org.json.JSONObject
 
 internal const val TabRequest = 0
 internal const val TabResponse = 1
@@ -46,14 +48,32 @@ internal fun rememberHeaders(
     }.orEmpty()
 }
 
+private fun GeckoData.resolveRequestBody() = when (requestContentType) {
+    "application/json" -> when {
+        requestBody.startsWith("[") -> JSONArray(requestBody).toString(2)
+        requestBody.startsWith("{") -> JSONObject(requestBody).toString(2)
+        else -> requestBody
+    }
+    else -> requestBody
+}
+
+private fun GeckoData.resolveResponseBody() = when (responseContentType) {
+    "application/json" -> when {
+        responseBody.startsWith("[") -> JSONArray(responseBody).toString(2)
+        responseBody.startsWith("{") -> JSONObject(responseBody).toString(2)
+        else -> responseBody
+    }
+    else -> responseBody
+}
+
 @Composable
 internal fun rememberBody(
     metadata: GeckoData?,
     position: Int
 ) = remember(metadata, position) {
     when (position) {
-        TabRequest -> metadata?.requestBody
-        TabResponse -> metadata?.responseBody
+        TabRequest -> metadata?.resolveRequestBody()
+        TabResponse -> metadata?.resolveResponseBody()
         else -> ""
     }.orEmpty()
 }
