@@ -89,7 +89,7 @@ private fun DashboardList(
         contentPadding = rememberInsetsPaddingValues(
             LocalWindowInsets.current.navigationBars,
             additionalTop = padding.calculateTopPadding(),
-            additionalBottom = padding.calculateBottomPadding(),
+            additionalBottom = padding.calculateBottomPadding() + 16.dp,
             additionalStart = padding.calculateStartPadding(LocalLayoutDirection.current),
             additionalEnd = padding.calculateEndPadding(LocalLayoutDirection.current)
         )
