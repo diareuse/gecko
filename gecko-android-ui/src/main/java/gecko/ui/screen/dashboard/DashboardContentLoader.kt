@@ -12,10 +12,12 @@ internal class DashboardContentLoader(
 ) : DashboardWorker {
 
     override suspend fun execute(model: DashboardViewModel) {
-        val config = PagingConfig(pageSize = 10)
-        val pager = Pager(config) { GeckoPagingSource(context.applicationContext) }.flow
-        pager.collectLatest {
-            model.submitPagingData(it)
+        model.refreshSignal.collectLatest {
+            val config = PagingConfig(pageSize = 10)
+            val pager = Pager(config) { GeckoPagingSource(context.applicationContext) }.flow
+            pager.collectLatest {
+                model.submitPagingData(it)
+            }
         }
     }
 

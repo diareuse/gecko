@@ -13,7 +13,9 @@ internal class DashboardViewModel : ViewModel() {
 
     private val _pagingData = MutableStateFlow<PagingData<GeckoMetadata>>(PagingData.empty())
     private val _appName = MutableStateFlow("")
+    private val _refreshSignal = MutableStateFlow(Any())
 
+    val refreshSignal = _refreshSignal.asStateFlow()
     val pagingData = _pagingData.cachedIn(viewModelScope)
     val appName = _appName.asStateFlow()
 
@@ -23,6 +25,10 @@ internal class DashboardViewModel : ViewModel() {
 
     fun submitAppName(name: String) {
         _appName.update { name }
+    }
+
+    fun submitRefreshRequest() {
+        _refreshSignal.value = Any()
     }
 
 }

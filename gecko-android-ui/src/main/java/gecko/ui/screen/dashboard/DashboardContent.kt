@@ -56,7 +56,7 @@ internal fun DashboardContent(viewModel: DashboardViewModel) {
                 .navigationBarsPadding()
                 .padding(16.dp)
                 .onSizeChanged { bottomOffset = it.height },
-            onClick = items::refresh
+            onClick = { viewModel.submitRefreshRequest() }
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_gecko_refresh),
