@@ -14,11 +14,13 @@ data class GeckoData(
     val requestUrl: String,
     val requestHeaders: @RawValue Set<String>,
     val requestLength: Long,
+    val requestContentType: String,
     val requestBody: String,
     val responseCode: Int,
     val responseMessage: String,
     val responseProtocol: String,
     val responseHeaders: @RawValue Set<String>,
     val responseLength: Long,
+    val responseContentType: String,
     val responseBody: String
 ) : Parcelable

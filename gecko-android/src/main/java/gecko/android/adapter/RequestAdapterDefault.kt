@@ -12,6 +12,7 @@ internal class RequestAdapterDefault : RequestAdapter {
             url = url,
             headers = headers,
             length = length,
+            contentType = contentType,
             body = body.decodeToString()
         )
     }

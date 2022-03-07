@@ -24,5 +24,6 @@ internal data class PersistedResponse(
     @ColumnInfo(name = "protocol") val protocol: String,
     @ColumnInfo(name = "headers") val headers: Headers,
     @ColumnInfo(name = "length") val length: Long,
+    @ColumnInfo(name = "content_type") val contentType: String,
     @ColumnInfo(name = "body") val body: String
 )

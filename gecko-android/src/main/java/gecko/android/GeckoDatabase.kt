@@ -15,7 +15,7 @@ import gecko.android.model.*
         CallMetadataView::class
     ],
     exportSchema = false,
-    version = 1
+    version = 2
 )
 internal abstract class GeckoDatabase : RoomDatabase() {
 

@@ -17,12 +17,14 @@ internal class MetadataAdapterDefault : MetadataAdapter {
             requestUrl = requestUrl,
             requestHeaders = requestHeaders.asSet(),
             requestLength = requestLength,
+            requestContentType = requestContentType,
             requestBody = requestBody,
             responseCode = responseCode,
             responseMessage = responseMessage,
             responseProtocol = responseProtocol,
             responseHeaders = responseHeaders.asSet(),
             responseLength = responseLength,
+            responseContentType = responseContentType,
             responseBody = responseBody
         )
     }

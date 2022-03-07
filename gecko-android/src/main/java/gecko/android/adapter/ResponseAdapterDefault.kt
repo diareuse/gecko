@@ -13,6 +13,7 @@ internal class ResponseAdapterDefault : ResponseAdapter {
             protocol = protocol,
             headers = headers,
             length = length,
+            contentType = contentType,
             body = body.decodeToString()
         )
     }

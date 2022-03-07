@@ -59,6 +59,18 @@ internal fun rememberBody(
 }
 
 @Composable
+private fun rememberContentType(
+    metadata: GeckoData?,
+    position: Int
+) = remember(metadata, position) {
+    when (position) {
+        TabRequest -> metadata?.requestContentType
+        TabResponse -> metadata?.responseContentType
+        else -> ""
+    }.orEmpty()
+}
+
+@Composable
 internal fun DetailContent(viewModel: DetailViewModel) {
     val metadata by viewModel.metadata.collectAsState()
     var selectedTabPosition by rememberSaveable { mutableStateOf(0) }
@@ -112,6 +124,14 @@ internal fun DetailContent(viewModel: DetailViewModel) {
     }
 
     @Composable
+    fun ContentType(type: String) = TitledSection(title = "Content Type") {
+        PreformattedBody(
+            modifier = Modifier.fillMaxWidth(),
+            text = type
+        )
+    }
+
+    @Composable
     fun Body(body: String) = TitledSection(title = "Body") {
         PreformattedBody(
             modifier = Modifier.fillMaxWidth(),
@@ -130,6 +150,7 @@ internal fun DetailContent(viewModel: DetailViewModel) {
 
         item { Tabs() }
         item { Headers(rememberHeaders(metadata, selectedTabPosition)) }
+        item { ContentType(rememberContentType(metadata, selectedTabPosition)) }
         item { Body(rememberBody(metadata, selectedTabPosition)) }
     }
 }
