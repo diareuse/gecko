@@ -31,11 +31,11 @@ internal fun <Model> Worker(model: Model, vararg workers: ViewWorker<Model>) {
 @Composable
 internal fun <Model : ViewModel> Worker(model: Model, vararg workers: ViewWorker<Model>) {
     DisposableEffect(model) {
-        model.viewModelScope.launch {
+        val job = model.viewModelScope.launch {
             workers.execute(model)
         }
-        // we've got nothing to dispose of here, since the viewModelScope will handle
-        // the disposition as viewModel gets cleared, hopefully
-        onDispose { /* no-op */ }
+        onDispose {
+            job.cancel()
+        }
     }
 }
