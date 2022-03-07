@@ -31,7 +31,12 @@ class GeckoPagingSource internal constructor(
 
     private val call by lazy { database.call() }
 
-    override fun getRefreshKey(state: PagingState<Int, GeckoMetadata>) = 0
+    override fun getRefreshKey(state: PagingState<Int, GeckoMetadata>): Int? {
+        val anchor = state.anchorPosition ?: return null
+        val page = state.closestPageToPosition(anchor) ?: return null
+        return page.prevKey?.plus(state.config.pageSize)
+            ?: page.nextKey?.minus(state.config.pageSize)
+    }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, GeckoMetadata> {
         return call
