@@ -15,7 +15,7 @@ class App : Application() {
         gecko = geckoAndroid()
 
         Thread {
-            repeat(100) {
+            repeat(10) {
                 gecko.process(generateMetadata())
             }
         }.start()
