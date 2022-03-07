@@ -33,19 +33,17 @@ just [try it out](https://diareuse.github.io/gecko/?q=H4sIAAAAAAAAAJ1UXW_aMBSVkj
     <img src="art/detail.png" width=40% height=40%>
 </p>
 
-## Why is it useful?
+# Links!
 
-Current methods of network request debugging are either directly dependant on Google Chrome, require
-downloading additional apps written in bulky React, are an uncontrollable dependency madness or
-simply do not grant you the immediate pleasure of **sharing buggy network request with your
-colleague**.
-
-I like none of these so I made my own. Include only the things you want or need and nothing more.
-Modify every piece of the library as a user, _not as a contributor_.
+- Visit our [Wiki](https://github.com/diareuse/gecko/wiki)
+- [Android Usage](https://github.com/diareuse/gecko/wiki/Android-Usage)
+- [Verbose Usage](https://github.com/diareuse/gecko/wiki/Verbose-Usage)
 
 ## Download
 
-JVM (level 11 compatible):
+> Gecko aims to be debug only where you don't need to care about predictability too much.
+> You can safely use "+" as a version.
+> You can be also a little bit cautious and use "0.+" instead to avoid api breaking changes, if there are any.
 
 ```groovy
 repositories {
@@ -53,158 +51,16 @@ repositories {
 }
 
 dependencies {
-    implementation "io.github.diareuse:gecko-core:+"
-    implementation "io.github.diareuse:gecko-okhttp:+"
-}
-```
-
-Android:
-
-> Please note that JVM modules are also compatible with Android.
-
-```groovy
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    implementation "io.github.diareuse:gecko-android:+"
+    debugImplementation "io.github.diareuse:gecko-core:+"
+    debugImplementation "io.github.diareuse:gecko-okhttp:+"
+    debugImplementation "io.github.diareuse:gecko-android:+"
     debugImplementation "io.github.diareuse:gecko-android-ui:+"
 }
 ```
 
-# Usage
+## Where is it?!
 
-Since Gecko is designed from the ground up to be extremely modular and extendable, you have free
-hand at what you can really do with it.
-
-But let's just start simple.
-
-## Startup
-
-You will initialize Gecko like so:
-
-```kotlin
-fun getGecko(): Gecko {
-    gecko()
-    // or…
-    gecko {
-        domain = "your.domain.com" // optional
-        encoder = Base64Encoder { … } // optional
-        adapter = object : MetadataAdapter { … } // optional
-        logger = Logger { … } // optional
-
-        addStep { GeckoYourModule(it) } // optional
-    }
-}
-```
-
-If you're however starting gecko on Android, you should use:
-
-```kotlin
-fun Context.getGecko(): Gecko {
-    geckoAndroid()
-    // or…
-    geckoAndroid {
-        // same options as above
-    }
-}
-```
-
-## Network Logging
-
-Gecko supports a Okhttp opt-in extension. It's a oversimplified logging class kanged
-from [Square](https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor) (thanks!).
-
-```kotlin
-val okhttp = OkHttpClient.Builder()
-    // … more interceptors here
-    .addInterceptor(GeckoInterceptor(gecko))
-    .build()
-```
-
-> Fun fact: Gecko doesn't care whether you use REST or for example GraphQL. As long as you can
-> serialize the body, it is possible to program an interceptor for that.
-
-## Android (+ UI!)
-
-All the heavy lifting is done for you. You need to only initialize gecko and provide a data source (
-like OkHttp!). It's strongly suggested, though, to create a **debug and release source sets** where
-in debug you would include Gecko.
-
-> There are plans to create a "no-op" library which should reduce this strain. However due to the
-> modularity it's rather inconvenient to duplicate all the code in a "no-op" flavor.
-
-With solely the Android module (and not the `-ui`) you are free to use paging source to make your
-own UI from scratch, to match your brand.
-
-## Extendability
-
-You can modify, bypass and add a new functionality of your own. Sky is the limit here.
-
-### Domain
-
-You can modify the domain to be hosted on your github, or your own web server. To do this you need
-to deploy the clone of this [repository](https://github.com/diareuse/gecko-fe) and set
-the [domain](gecko-core/src/main/java/gecko/builder/GeckoConfiguration.kt) variable to your own.
-
-### Serialize
-
-Create your own data format by implementing
-the [`MetadataAdapter`](gecko-core/src/main/java/gecko/MetadataAdapter.kt) and providing in the
-configuration.
-
-> Beware! The integration with Gecko Frontend (and by extension the link builders) will not work
-> when using a proprietary format!
-
-### Compress
-
-Compression is by default executed in a GZIP format. You can implement your own compression
-mechanisms by implementing [`Gecko`](gecko-core/src/main/java/gecko/Gecko.kt). Please visit
-the [builder](gecko-core/src/main/java/gecko/builder/GeckoBuilder.kt) to understand how to chain
-Gecko together.
-
-> Beware! The integration with Gecko Frontend (and by extension the link builders) will not work
-> when using a proprietary compression method!
-
-### Encode
-
-The encoding used for passing data to the frontend is Base64 by choice. You can however swap the
-encoding for something of your own.
-
-> Beware! The integration with Gecko Frontend (and by extension the link builders) will not work
-> when using a proprietary compression method!
-
-### and more!
-
-As mentioned before all you really need is the knowledge of chaining Gecko together and with it you
-can do almost anything. Browse the current code for ideas, suggest new integrations and steps in the
-issues!
-
-Resources:
-
-- [`Gecko`](gecko-core/src/main/java/gecko/Gecko.kt)
-- [`GeckoBuilder`](gecko-core/src/main/java/gecko/builder/GeckoBuilder.kt)
-
-## Building from source
-
-You need JDK 11 to complete the build successfully.
-
-> Never versions of the JDK are untested and can produce unwanted results.
-
-```bash
-./gradlew assemble publishToMavenLocal
-```
-
-```groovy
-repositories {
-    mavenLocal()
-}
-
-dependencies {
-    implementation "io.github.diareuse:gecko-core:undefined"
-    // and conversely the remaining modules…
-}
-```
+Try long pressing the application icon and Gecko! should be there. If it detects that it cannot
+create any shortcuts it automatically creates a launcher icon.
 
 Logo by <a href="https://www.flaticon.com/free-icons/gecko" title="gecko icons">Freepik</a>
