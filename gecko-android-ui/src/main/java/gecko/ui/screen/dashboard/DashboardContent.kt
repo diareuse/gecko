@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
@@ -32,25 +33,29 @@ internal fun DashboardContent(viewModel: DashboardViewModel) {
     val controller = LocalNavController.current
     val appName by viewModel.appName.collectAsState()
     val items = viewModel.pagingData.collectAsLazyPagingItems()
-    var offset by remember { mutableStateOf(0) }
+    var topOffset by remember { mutableStateOf(0) }
+    var bottomOffset by remember { mutableStateOf(0) }
 
     Box(modifier = Modifier.fillMaxSize()) {
         DashboardList(
-            offset = offset,
+            padding = with(LocalDensity.current) {
+                PaddingValues(top = topOffset.toDp(), bottom = bottomOffset.toDp())
+            },
             items = items,
             onItemClick = { controller.navigate(Destinations.CallDetail(it.toString())) }
         )
         DashboardToolbar(
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.surface.copy(alpha = .9f))
-                .onSizeChanged { offset = it.height },
+                .onSizeChanged { topOffset = it.height },
             appName = appName,
         )
         FloatingActionButton(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .navigationBarsPadding()
-                .padding(16.dp),
+                .padding(16.dp)
+                .onSizeChanged { bottomOffset = it.height },
             onClick = items::refresh
         ) {
             Icon(
@@ -76,17 +81,20 @@ private fun DashboardToolbar(
 
 @Composable
 private fun DashboardList(
-    offset: Int,
+    padding: PaddingValues,
     items: LazyPagingItems<GeckoMetadata>,
     onItemClick: (Long) -> Unit
 ) {
     LazyColumn(
         contentPadding = rememberInsetsPaddingValues(
             LocalWindowInsets.current.navigationBars,
-            additionalTop = with(LocalDensity.current) { offset.toDp() }
+            additionalTop = padding.calculateTopPadding(),
+            additionalBottom = padding.calculateBottomPadding(),
+            additionalStart = padding.calculateStartPadding(LocalLayoutDirection.current),
+            additionalEnd = padding.calculateEndPadding(LocalLayoutDirection.current)
         )
     ) {
-        items(items) {
+        items(items, key = { it.id }) {
             it ?: return@items
             CallOverview(
                 modifier = Modifier
