@@ -5,7 +5,7 @@ import gecko.*
 @PublishedApi
 internal class GeckoBuilder : GeckoConfiguration {
 
-    override var domain: String = "diareuse.github.io/gecko"
+    override lateinit var domain: String
     override lateinit var encoder: Base64Encoder
     override lateinit var adapter: MetadataAdapter
     override lateinit var logger: Logger
