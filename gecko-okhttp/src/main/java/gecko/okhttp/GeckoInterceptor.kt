@@ -30,7 +30,7 @@ class GeckoInterceptor(
     private fun okhttp3.Request.asGecko(): Request = Request(
         method = method,
         url = url.toString(),
-        headers = headers,
+        headers = headers.toList(),
         length = body?.contentLength() ?: 0,
         contentType = body?.contentType().toString(),
         body = body?.cloneBytes() ?: emptyByteArray
@@ -40,7 +40,7 @@ class GeckoInterceptor(
         code = code,
         message = message,
         protocol = protocol.name,
-        headers = headers,
+        headers = headers.toList(),
         length = body?.contentLength() ?: 0,
         contentType = body?.contentType().toString(),
         body = body?.cloneBytes(isGzipped) ?: emptyByteArray
