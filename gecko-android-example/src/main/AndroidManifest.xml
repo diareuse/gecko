@@ -1,8 +1,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="gecko.android.example">
 
-    <application android:name=".App">
-
+    <application
+        android:name=".App"
+        android:icon="@mipmap/ic_launcher_gecko_foreground">
+        <activity
+            android:name="gecko.android.example.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
