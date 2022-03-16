@@ -1,6 +1,7 @@
 package gecko.ui.component.toolbar
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -16,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import gecko.ui.R
 import gecko.ui.theme.GeckoTheme
+import kotlin.math.max
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -102,7 +104,7 @@ private fun ToolbarLayout(
             Box(modifier = Modifier.layoutId(ToolbarLayoutConstants.Title)) {
                 title.invoke()
             }
-            Box(modifier = Modifier.layoutId(ToolbarLayoutConstants.Actions)) {
+            Row(modifier = Modifier.layoutId(ToolbarLayoutConstants.Actions)) {
                 actions.invoke()
             }
         },
@@ -115,7 +117,10 @@ private fun ToolbarLayout(
                 .measure(constraints)
 
             val titleMaxWidth =
-                constraints.maxWidth - navigationIconPlaceable.width - actionsPlaceable.width
+                constraints.maxWidth - max(
+                    navigationIconPlaceable.width,
+                    actionsPlaceable.width
+                ) * 2
             val titlePlaceable = measurables
                 .first { it.layoutId == ToolbarLayoutConstants.Title }
                 .measure(constraints.copy(maxWidth = titleMaxWidth))
