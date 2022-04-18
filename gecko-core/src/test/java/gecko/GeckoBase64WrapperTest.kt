@@ -12,7 +12,7 @@ import org.junit.jupiter.api.assertThrows
 import org.mockito.Mock
 import org.mockito.kotlin.whenever
 
-class GeckoBase64WrapperTest : TestBlueprint {
+internal class GeckoBase64WrapperTest : TestBlueprint {
 
     private lateinit var wrapper: GeckoBase64Wrapper
 

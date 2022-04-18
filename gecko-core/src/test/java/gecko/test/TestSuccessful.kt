@@ -1,3 +1,3 @@
 package gecko.test
 
-class TestSuccessful : RuntimeException()
+internal class TestSuccessful : RuntimeException()

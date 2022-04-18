@@ -1,8 +1,8 @@
 package gecko.model
 
-val httpCodes = 200 until 600
+internal val httpCodes = 200 until 600
 
-fun response(
+internal fun response(
     code: Int = httpCodes.random(),
     message: String = "",
     protocol: String = "HTTP/2",

@@ -1,3 +1,3 @@
 package gecko
 
-fun logger(body: (String) -> Unit) = Logger { body(it) }
+internal fun logger(body: (String) -> Unit) = Logger { body(it) }

@@ -12,7 +12,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
-class GeckoBuilderTest : TestBlueprint {
+internal class GeckoBuilderTest : TestBlueprint {
 
     private lateinit var builder: GeckoBuilder
 

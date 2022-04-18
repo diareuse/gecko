@@ -4,7 +4,7 @@ import gecko.model.Request
 import okhttp3.Headers
 import okhttp3.RequestBody.Companion.toRequestBody
 
-fun request(
+internal fun request(
     method: String = "get",
     url: String = "https://example.org/",
     headers: List<Pair<String, String>> = listOf(),
@@ -20,7 +20,7 @@ fun request(
     body = body
 )
 
-fun Request.toRequest() = okhttp3.Request.Builder()
+internal fun Request.toRequest() = okhttp3.Request.Builder()
     .method(method, body.toRequestBody())
     .url(url)
     .headers(

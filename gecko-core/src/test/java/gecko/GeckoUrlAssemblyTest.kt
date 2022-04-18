@@ -12,7 +12,7 @@ import org.junit.jupiter.api.assertThrows
 import org.mockito.Mock
 import org.mockito.kotlin.whenever
 
-class GeckoUrlAssemblyTest : TestBlueprint {
+internal class GeckoUrlAssemblyTest : TestBlueprint {
 
     private val domain: String = "my-domain.org"
     private lateinit var assembly: GeckoUrlAssembly

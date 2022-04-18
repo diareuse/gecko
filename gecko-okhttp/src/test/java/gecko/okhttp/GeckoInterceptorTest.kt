@@ -11,7 +11,7 @@ import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.mockito.kotlin.whenever
 
-class GeckoInterceptorTest {
+internal class GeckoInterceptorTest {
 
     private lateinit var interceptor: GeckoInterceptor
 

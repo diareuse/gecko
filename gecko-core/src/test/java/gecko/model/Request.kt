@@ -1,9 +1,9 @@
 package gecko.model
 
-val httpMethods =
+internal val httpMethods =
     listOf("get", "head", "post", "put", "delete", "connect", "options", "trace", "patch")
 
-fun request(
+internal fun request(
     method: String = httpMethods.random(),
     url: String = "https://example.org/api/foo",
     headers: Headers = emptyList(),

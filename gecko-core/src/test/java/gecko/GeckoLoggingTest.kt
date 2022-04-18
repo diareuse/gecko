@@ -10,7 +10,7 @@ import org.junit.jupiter.api.assertThrows
 import org.mockito.Mock
 import org.mockito.kotlin.whenever
 
-class GeckoLoggingTest : TestBlueprint {
+internal class GeckoLoggingTest : TestBlueprint {
 
     private lateinit var logging: GeckoLogging
 

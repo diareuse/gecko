@@ -1,6 +1,6 @@
 package gecko.model
 
-fun networkMetadata(
+internal fun networkMetadata(
     request: Request = request(),
     response: Response = response()
 ) = NetworkMetadata(

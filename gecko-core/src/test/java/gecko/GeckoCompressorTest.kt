@@ -12,7 +12,7 @@ import org.junit.jupiter.api.assertThrows
 import org.mockito.Mock
 import org.mockito.kotlin.whenever
 
-class GeckoCompressorTest : TestBlueprint {
+internal class GeckoCompressorTest : TestBlueprint {
 
     private lateinit var compressor: GeckoCompressor
 

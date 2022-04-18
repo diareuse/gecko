@@ -6,7 +6,7 @@ import okhttp3.Protocol
 import okhttp3.Request
 import okhttp3.ResponseBody.Companion.toResponseBody
 
-fun response(
+internal fun response(
     code: Int = 200,
     message: String = "",
     protocol: String = "HTTP_2",
@@ -24,7 +24,7 @@ fun response(
     body = body
 )
 
-fun Response.toResponse(request: Request) = okhttp3.Response.Builder()
+internal fun Response.toResponse(request: Request) = okhttp3.Response.Builder()
     .code(code)
     .message(message)
     .protocol(Protocol.valueOf(protocol))

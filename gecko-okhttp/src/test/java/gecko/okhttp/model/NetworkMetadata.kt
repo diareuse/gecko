@@ -4,7 +4,7 @@ import gecko.model.NetworkMetadata
 import gecko.model.Request
 import gecko.model.Response
 
-fun networkMetadata(
+internal fun networkMetadata(
     request: Request = request(),
     response: Response = response()
 ) = NetworkMetadata(request, response)

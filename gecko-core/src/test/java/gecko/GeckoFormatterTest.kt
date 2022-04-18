@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 import org.mockito.Mock
 import org.mockito.kotlin.whenever
 
-class GeckoFormatterTest : TestBlueprint {
+internal class GeckoFormatterTest : TestBlueprint {
 
     private lateinit var formatter: GeckoFormatter
 
