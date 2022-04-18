@@ -1,5 +1,12 @@
 package gecko.model
 
+/**
+ * Common representation for a server Request.
+ *
+ * ### Warning!
+ *
+ * This object may be quite large, consider truncating [body] where possible.
+ * */
 data class Request(
     val method: String,
     val url: String,

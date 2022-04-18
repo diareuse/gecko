@@ -1,5 +1,12 @@
 package gecko.model
 
+/**
+ * Common representation for a server Response.
+ *
+ * ### Warning!
+ *
+ * This object may be quite large, consider truncating [body] where possible.
+ * */
 data class Response(
     val code: Int,
     val message: String,
