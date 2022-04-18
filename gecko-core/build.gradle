@@ -1,5 +1,3 @@
 plugins {
-    id 'java-library'
-    id 'module-jvm'
-    id 'com.vanniktech.maven.publish'
+    id 'module-android-library'
 }
