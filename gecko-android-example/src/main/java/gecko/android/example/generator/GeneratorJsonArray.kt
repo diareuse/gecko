@@ -4,7 +4,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import kotlin.random.Random.Default.nextInt
 
-class GeneratorJsonArray(
+internal class GeneratorJsonArray(
     private val json: Generator<JSONObject>,
     private val minCount: Int = 1,
     private val maxCount: Int = 5

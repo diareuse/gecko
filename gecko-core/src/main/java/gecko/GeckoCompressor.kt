@@ -6,6 +6,9 @@ import gecko.model.mapBytes
 import java.io.ByteArrayOutputStream
 import java.util.zip.GZIPOutputStream
 
+/**
+ * Uses previous step's result to compress a given result.
+ * */
 class GeckoCompressor(
     private val source: Gecko
 ) : Gecko {

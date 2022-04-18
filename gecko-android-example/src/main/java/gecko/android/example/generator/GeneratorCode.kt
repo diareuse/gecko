@@ -1,6 +1,6 @@
 package gecko.android.example.generator
 
-class GeneratorCode : Generator<Int> {
+internal class GeneratorCode : Generator<Int> {
 
     private val codes = 200 until 600
 

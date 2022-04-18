@@ -7,7 +7,7 @@ import gecko.android.example.generator.Generator
 import gecko.android.example.generator.networkMetadataGenerator
 import gecko.model.NetworkMetadata
 
-class App : Application(), Generator<NetworkMetadata> by networkMetadataGenerator() {
+internal class App : Application(), Generator<NetworkMetadata> by networkMetadataGenerator() {
 
     override fun onCreate() {
         super.onCreate()

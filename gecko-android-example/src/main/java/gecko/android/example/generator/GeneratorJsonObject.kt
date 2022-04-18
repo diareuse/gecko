@@ -5,7 +5,7 @@ import kotlin.random.Random
 import kotlin.random.Random.Default.nextBoolean
 import kotlin.random.Random.Default.nextInt
 
-class GeneratorJsonObject(
+internal class GeneratorJsonObject(
     private val string: Generator<String>,
     private val minCount: Int = 1,
     private val maxCount: Int = 5

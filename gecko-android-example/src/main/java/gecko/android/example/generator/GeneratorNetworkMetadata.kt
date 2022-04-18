@@ -4,7 +4,7 @@ import gecko.model.NetworkMetadata
 import gecko.model.Request
 import gecko.model.Response
 
-class GeneratorNetworkMetadata(
+internal class GeneratorNetworkMetadata(
     private val request: Generator<Request>,
     private val response: Generator<Response>
 ) : Generator<NetworkMetadata> {
@@ -16,7 +16,7 @@ class GeneratorNetworkMetadata(
 
 }
 
-fun networkMetadataGenerator(): Generator<NetworkMetadata> {
+internal fun networkMetadataGenerator(): Generator<NetworkMetadata> {
     val string = GeneratorString()
     val json = GeneratorJsonObject(string)
     val array = GeneratorJsonArray(json)

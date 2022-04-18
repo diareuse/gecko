@@ -4,7 +4,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import kotlin.random.Random.Default.nextBoolean
 
-class GeneratorBody(
+internal class GeneratorBody(
     private val array: Generator<JSONArray>,
     private val json: Generator<JSONObject>
 ) : Generator<String> {

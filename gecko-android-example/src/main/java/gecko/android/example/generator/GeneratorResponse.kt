@@ -2,7 +2,7 @@ package gecko.android.example.generator
 
 import gecko.model.Response
 
-class GeneratorResponse(
+internal class GeneratorResponse(
     private val code: Generator<Int>,
     private val body: Generator<String>
 ) : Generator<Response> {

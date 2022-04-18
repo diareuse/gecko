@@ -5,6 +5,9 @@ import gecko.model.NetworkMetadata
 import gecko.model.Request
 import gecko.model.Response
 
+/**
+ * Uses basic ASCII characters to define a proprietary format for storing information
+ * */
 class MetadataAdapterAscii : MetadataAdapter {
 
     override fun adapt(metadata: NetworkMetadata) = StringBuilder()

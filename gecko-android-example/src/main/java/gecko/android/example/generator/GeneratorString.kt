@@ -2,7 +2,7 @@ package gecko.android.example.generator
 
 import kotlin.random.Random.Default.nextInt
 
-class GeneratorString(
+internal class GeneratorString(
     private val minLength: Int = 5,
     private val maxLength: Int = 20
 ) : Generator<String> {
