@@ -6,6 +6,7 @@
         android:icon="@mipmap/ic_launcher_gecko_foreground">
         <activity
             android:name="gecko.android.example.MainActivity"
+            android:label="Gecko Empty"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
