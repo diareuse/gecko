@@ -6,7 +6,7 @@ import gecko.Logger
 import gecko.MetadataAdapterAscii
 
 inline fun gecko(builder: GeckoConfiguration.() -> Unit = {}): Gecko {
-    return GeckoBuilder().apply(builder).apply(::geckoDefaults).build()
+    return GeckoBuilder().apply(::geckoDefaults).apply(builder).build()
 }
 
 @PublishedApi
