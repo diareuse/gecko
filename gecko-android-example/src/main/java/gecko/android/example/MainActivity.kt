@@ -1,5 +1,5 @@
 package gecko.android.example
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
 
-internal class MainActivity : AppCompatActivity()
+internal class MainActivity : Activity()
