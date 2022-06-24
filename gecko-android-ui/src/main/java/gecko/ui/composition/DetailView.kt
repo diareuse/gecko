@@ -35,7 +35,7 @@ private fun getSource(context: Context): GeckoSource {
 private class DetailViewModelFactory(
     private val id: String
 ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return DetailViewModel(id) as T
     }
 }
