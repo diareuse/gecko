@@ -1,10 +1,9 @@
 package gecko.builder
 
-import gecko.Base64Encoder
+import gecko.Base64EncoderJava
 import gecko.Gecko
 import gecko.Logger
 import gecko.MetadataAdapterAscii
-import java.util.*
 
 inline fun gecko(builder: GeckoConfiguration.() -> Unit = {}): Gecko {
     return GeckoBuilder().apply(builder).apply(::geckoDefaults).build()
@@ -13,12 +12,7 @@ inline fun gecko(builder: GeckoConfiguration.() -> Unit = {}): Gecko {
 @PublishedApi
 internal fun geckoDefaults(configuration: GeckoConfiguration) {
     configuration.domain = "diareuse.github.io/gecko"
-    configuration.encoder = object : Base64Encoder {
-        val encoder = Base64.getUrlEncoder()
-        override fun encode(data: ByteArray): ByteArray {
-            return encoder.encode(data)
-        }
-    }
+    configuration.encoder = Base64EncoderJava()
     configuration.adapter = MetadataAdapterAscii()
     configuration.logger = Logger { println(it) }
 }
