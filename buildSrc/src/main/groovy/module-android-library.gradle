@@ -4,10 +4,6 @@ plugins {
     id 'com.vanniktech.maven.publish'
 }
 
-mavenPublish {
-    sonatypeHost = "S01"
-}
-
 dependencies {
     testImplementation "org.jetbrains.kotlin:kotlin-test:1.6.20"
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
