@@ -4,6 +4,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
@@ -42,6 +43,8 @@ class GeckoStartup : Initializer<Unit> {
             .build()
 
         return try {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1)
+                throw IllegalStateException("Shortcuts API is not available")
             ShortcutManagerCompat.pushDynamicShortcut(this, shortcut)
         } catch (e: IllegalStateException) {
             e.printStackTrace()
