@@ -2,7 +2,6 @@ package gecko.ui.component.container
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -61,11 +60,11 @@ private fun GradientHeadlineContainerPreview() {
         GradientHeadlineContainer(
             startColor = MaterialTheme.colorScheme.primaryContainer,
             endColor = MaterialTheme.colorScheme.secondaryContainer,
-            shape = RoundedCornerShape(8.dp),
+            shape = MaterialTheme.shapes.medium,
             headlineLeft = { Text(text = "Left") },
             headlineRight = { Text(text = "Right") }) {
             Surface(
-                shape = RoundedCornerShape(8.dp),
+                shape = MaterialTheme.shapes.medium,
                 color = MaterialTheme.colorScheme.surfaceVariant
             ) {
                 Spacer(modifier = Modifier

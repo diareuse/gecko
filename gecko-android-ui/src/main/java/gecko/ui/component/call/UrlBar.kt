@@ -4,7 +4,6 @@ import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -26,7 +25,7 @@ internal fun UrlBar(
         modifier = modifier
             .background(
                 LocalContentColor.current.copy(alpha = .1f),
-                shape = RoundedCornerShape(4.dp)
+                shape = MaterialTheme.shapes.small
             )
             .padding(4.dp, 0.dp),
         text = uri.authority.orEmpty(),

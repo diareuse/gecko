@@ -91,6 +91,7 @@ private fun BasicTheme(
 
     MaterialTheme(
         colorScheme = colors,
+        shapes = AppShapes,
         typography = AppTypography,
         content = content
     )

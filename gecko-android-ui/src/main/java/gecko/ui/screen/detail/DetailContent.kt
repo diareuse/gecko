@@ -5,7 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -226,7 +226,10 @@ private fun DetailTabs(
                     .fillMaxSize()
                     .background(
                         MaterialTheme.colorScheme.secondaryContainer,
-                        RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp)
+                        MaterialTheme.shapes.medium.copy(
+                            bottomEnd = CornerSize(0),
+                            bottomStart = CornerSize(0)
+                        )
                     )
             )
         }
@@ -280,7 +283,7 @@ internal fun PreformattedBody(
         modifier = modifier,
         color = MaterialTheme.colorScheme.surfaceVariant,
         contentColor = MaterialTheme.colorScheme.onSurface,
-        shape = RoundedCornerShape(8.dp)
+        shape = MaterialTheme.shapes.large
     ) {
         Text(
             modifier = Modifier.padding(16.dp),
