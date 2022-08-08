@@ -5,22 +5,20 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import gecko.android.GeckoDatabase
 import gecko.android.GeckoDatabaseFactory
-import gecko.android.adapter.MetadataAdapter
 import gecko.android.model.GeckoMetadata
+import gecko.android.model.asGeckoMetadata
 import gecko.android.selectSuspendCatching
 import gecko.android.tooling.nextKey
 import gecko.android.tooling.prevKey
 
 class GeckoPagingSource internal constructor(
-    database: GeckoDatabase,
-    private val adapter: MetadataAdapter
+    database: GeckoDatabase
 ) : PagingSource<Int, GeckoMetadata>() {
 
     internal constructor(
         factory: GeckoDatabaseFactory
     ) : this(
-        database = factory.getDatabase(),
-        adapter = factory.getMetadata()
+        database = factory.getDatabase()
     )
 
     constructor(
@@ -41,7 +39,7 @@ class GeckoPagingSource internal constructor(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, GeckoMetadata> {
         return call
             .selectSuspendCatching(params.key ?: 0, params.loadSize)
-            .map { it.map(adapter::adapt) }
+            .map { list -> list.map { it.asGeckoMetadata() } }
             .fold(
                 onSuccess = { LoadResult.Page(it, params.prevKey(), params.nextKey(it)) },
                 onFailure = { LoadResult.Error(it) }

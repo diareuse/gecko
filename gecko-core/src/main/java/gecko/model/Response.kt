@@ -1,5 +1,7 @@
 package gecko.model
 
+import kotlin.reflect.KProperty0
+
 /**
  * Common representation for a server Response.
  *
@@ -7,42 +9,44 @@ package gecko.model
  *
  * This object may be quite large, consider truncating [body] where possible.
  * */
-data class Response(
-    val code: Int,
-    val message: String,
-    val protocol: String,
-    val headers: Headers,
-    val length: Long,
-    val contentType: String,
-    val body: ByteArray
-) {
+open class Response(
+    open val code: Int,
+    open val message: String,
+    open val protocol: String,
+    open val headers: Headers,
+    open val length: Long,
+    open val contentType: String,
+    @Suppress("ArrayInDataClass")
+    open val body: ByteArray
+) : AbstractGeckoModel() {
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
+    override val properties: Sequence<KProperty0<Any?>>
+        get() = sequenceOf(
+            ::code,
+            ::message,
+            ::protocol,
+            ::headers,
+            ::length,
+            ::contentType,
+            ::body
+        )
 
-        other as Response
-
-        if (code != other.code) return false
-        if (message != other.message) return false
-        if (protocol != other.protocol) return false
-        if (headers != other.headers) return false
-        if (length != other.length) return false
-        if (contentType != other.contentType) return false
-        if (!body.contentEquals(other.body)) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = code
-        result = 31 * result + message.hashCode()
-        result = 31 * result + protocol.hashCode()
-        result = 31 * result + headers.hashCode()
-        result = 31 * result + length.hashCode()
-        result = 31 * result + contentType.hashCode()
-        result = 31 * result + body.contentHashCode()
-        return result
-    }
+    fun copy(
+        code: Int = this.code,
+        message: String = this.message,
+        protocol: String = this.protocol,
+        headers: Headers = this.headers,
+        length: Long = this.length,
+        contentType: String = this.contentType,
+        body: ByteArray = this.body
+    ) = Response(
+        code = code,
+        message = message,
+        protocol = protocol,
+        headers = headers,
+        length = length,
+        contentType = contentType,
+        body = body
+    )
 
 }

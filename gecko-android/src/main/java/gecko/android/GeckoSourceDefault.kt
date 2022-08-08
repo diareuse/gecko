@@ -1,14 +1,13 @@
 package gecko.android
 
-import gecko.android.adapter.MetadataAdapter
+import gecko.android.model.asGeckoData
 
 internal class GeckoSourceDefault(
-    private val call: DaoCall,
-    private val adapter: MetadataAdapter
+    private val call: DaoCall
 ) : GeckoSource {
 
     override fun getMetadata(id: Long) = call.select(id)
-        ?.run(adapter::adapt)
+        ?.asGeckoData()
         .run(::requireNotNull)
 
 }

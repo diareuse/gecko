@@ -5,8 +5,7 @@ internal class GeckoSourceFactoryDefault(
 ) : GeckoSourceFactory {
 
     override fun getInstance(): GeckoSource = GeckoSourceDefault(
-        call = database.getDatabase().call(),
-        adapter = database.getMetadata()
+        call = database.getDatabase().call()
     )
 
 }

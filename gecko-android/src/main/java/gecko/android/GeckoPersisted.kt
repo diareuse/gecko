@@ -2,19 +2,15 @@ package gecko.android
 
 import android.content.Context
 import gecko.Gecko
-import gecko.android.adapter.CallAdapter
-import gecko.android.adapter.RequestAdapter
-import gecko.android.adapter.ResponseAdapter
+import gecko.android.model.asCall
+import gecko.android.model.asPersistedRequest
+import gecko.android.model.asPersistedResponse
 import gecko.model.NetworkMetadata
 import gecko.model.Tail
-import gecko.model.asString
 
 class GeckoPersisted internal constructor(
     private val gecko: Gecko,
-    private val database: GeckoDatabase,
-    private val adapterCall: CallAdapter,
-    private val adapterRequest: RequestAdapter,
-    private val adapterResponse: ResponseAdapter
+    private val database: GeckoDatabase
 ) : Gecko {
 
     internal constructor(
@@ -22,10 +18,7 @@ class GeckoPersisted internal constructor(
         factory: GeckoDatabaseFactory
     ) : this(
         gecko,
-        factory.getDatabase(),
-        factory.getCall(),
-        factory.getRequest(),
-        factory.getResponse()
+        factory.getDatabase()
     )
 
     constructor(
@@ -42,9 +35,9 @@ class GeckoPersisted internal constructor(
 
     override fun process(metadata: NetworkMetadata): Tail = gecko.process(metadata).also {
         database.runInTransaction {
-            val id = call.insert(adapterCall.adapt(it.asString()))
-            request.insert(adapterRequest.adapt(id, metadata.request))
-            response.insert(adapterResponse.adapt(id, metadata.response))
+            val id = call.insert(it.asCall())
+            request.insert(metadata.request.asPersistedRequest(id))
+            response.insert(metadata.response.asPersistedResponse(id))
         }
     }
 

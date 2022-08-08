@@ -3,12 +3,12 @@ package gecko.android.model
 import androidx.room.ColumnInfo
 import androidx.room.DatabaseView
 import androidx.room.TypeConverters
-import gecko.android.adapter.DateAdapter
-import gecko.android.adapter.HeadersAdapter
+import gecko.android.adapter.DateConverter
+import gecko.android.adapter.HeadersConverter
 import gecko.model.Headers
 import java.util.*
 
-@TypeConverters(DateAdapter::class, HeadersAdapter::class)
+@TypeConverters(DateConverter::class, HeadersConverter::class)
 @DatabaseView(
     viewName = "call",
     value = """

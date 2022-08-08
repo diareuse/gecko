@@ -2,7 +2,6 @@ package gecko.android
 
 import android.content.Context
 import androidx.room.Room
-import gecko.android.adapter.*
 import java.lang.ref.WeakReference
 
 internal class GeckoDatabaseFactoryDefault private constructor(
@@ -19,22 +18,6 @@ internal class GeckoDatabaseFactoryDefault private constructor(
             .databaseBuilder(context, type, name)
             .fallbackToDestructiveMigration()
             .build()
-    }
-
-    override fun getCall(): CallAdapter {
-        return CallAdapterDefault()
-    }
-
-    override fun getRequest(): RequestAdapter {
-        return RequestAdapterDefault()
-    }
-
-    override fun getResponse(): ResponseAdapter {
-        return ResponseAdapterDefault()
-    }
-
-    override fun getMetadata(): MetadataAdapter {
-        return MetadataAdapterDefault()
     }
 
 }

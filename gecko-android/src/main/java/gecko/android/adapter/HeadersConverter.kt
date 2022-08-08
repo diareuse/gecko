@@ -3,7 +3,7 @@ package gecko.android.adapter
 import androidx.room.TypeConverter
 import gecko.model.Headers
 
-internal class HeadersAdapter {
+internal class HeadersConverter {
 
     @TypeConverter
     fun toDatabase(headers: Headers) =

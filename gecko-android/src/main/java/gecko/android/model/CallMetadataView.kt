@@ -3,10 +3,10 @@ package gecko.android.model
 import androidx.room.ColumnInfo
 import androidx.room.DatabaseView
 import androidx.room.TypeConverters
-import gecko.android.adapter.DateAdapter
+import gecko.android.adapter.DateConverter
 import java.util.*
 
-@TypeConverters(DateAdapter::class)
+@TypeConverters(DateConverter::class)
 @DatabaseView(
     viewName = "call_metadata",
     value = """
