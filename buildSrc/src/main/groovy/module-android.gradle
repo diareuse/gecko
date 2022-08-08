@@ -6,11 +6,11 @@ plugins {
 
 android {
 
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         minSdk 16
-        targetSdk 32
+        targetSdk 33
     }
 
     compileOptions {
@@ -25,5 +25,11 @@ android {
     buildFeatures {
         buildConfig = false
     }
+
+}
+
+dependencies {
+
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.7.0"
 
 }
