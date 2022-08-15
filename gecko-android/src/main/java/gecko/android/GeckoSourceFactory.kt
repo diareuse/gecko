@@ -1,7 +1,5 @@
 package gecko.android
 
-import android.content.Context
-
 interface GeckoSourceFactory {
 
     fun getInstance(): GeckoSource
@@ -11,8 +9,8 @@ interface GeckoSourceFactory {
         private var instance: GeckoSourceFactory? = null
 
         @Suppress("ComplexRedundantLet")
-        fun getInstance(context: Context) = instance ?: synchronized(GeckoSourceFactory) {
-            instance ?: GeckoSourceFactoryDefault(GeckoDatabaseFactory.getInstance(context))
+        fun getInstance() = instance ?: synchronized(GeckoSourceFactory) {
+            instance ?: GeckoSourceFactoryDefault(GeckoDatabaseFactory.getInstance())
                 .let { GeckoSourceFactorySingle(it) }
                 .also { instance = it }
         }

@@ -18,7 +18,7 @@ internal fun DashboardView(@Suppress("UNUSED_PARAMETER") entry: NavBackStackEntr
     DashboardContent(viewModel)
     Worker(
         viewModel,
-        remember(viewModel, context) { DashboardContentLoader(context) },
+        remember(viewModel, context) { DashboardContentLoader() },
         remember(viewModel, context) { DashboardNameLoader(context) }
     )
 }

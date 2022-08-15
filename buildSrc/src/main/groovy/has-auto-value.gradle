@@ -1,6 +1,7 @@
 dependencies {
 
-    compileOnly "com.google.auto.value:auto-value-annotations:1.9"
-    kapt "com.google.auto.value:auto-value:1.9"
+    compileOnly "com.google.auto.value:auto-value-annotations:1.8.1"
+    testCompileOnly "com.google.auto.value:auto-value-annotations:1.8.1"
+    kapt "com.google.auto.value:auto-value:1.8.1"
 
 }

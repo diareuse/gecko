@@ -1,5 +1,7 @@
 package gecko
 
+import gecko.util.loadServices
+
 /**
  * Wraps system logging.
  * */
@@ -11,5 +13,15 @@ fun interface Logger {
      * implementation.
      * */
     fun log(message: String)
+
+    companion object : Logger {
+
+        override fun log(message: String) {
+            for (logger in loadServices<Logger>()) {
+                logger.log(message)
+            }
+        }
+
+    }
 
 }

@@ -2,7 +2,6 @@ package gecko.android.example
 
 import android.app.Application
 import gecko.Gecko
-import gecko.android.builder.geckoAndroid
 import gecko.android.example.generator.Generator
 import gecko.android.example.generator.networkMetadataGenerator
 import gecko.model.NetworkMetadata
@@ -11,17 +10,12 @@ internal class App : Application(), Generator<NetworkMetadata> by networkMetadat
 
     override fun onCreate() {
         super.onCreate()
-        gecko = geckoAndroid()
 
         Thread {
             repeat(10) {
-                gecko.process(generate())
+                Gecko.process(generate())
             }
         }.start()
-    }
-
-    companion object {
-        lateinit var gecko: Gecko
     }
 
 }

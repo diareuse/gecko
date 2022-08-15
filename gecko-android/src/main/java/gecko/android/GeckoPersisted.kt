@@ -1,43 +1,27 @@
 package gecko.android
 
-import android.content.Context
+import com.google.auto.service.AutoService
 import gecko.Gecko
-import gecko.android.model.asCall
-import gecko.android.model.asPersistedRequest
-import gecko.android.model.asPersistedResponse
+import gecko.GeckoThreadSwitching
+import gecko.android.model.snapshotRequest
+import gecko.android.model.snapshotResponse
+import gecko.android.model.toCall
+import gecko.model.ByteData
 import gecko.model.NetworkMetadata
-import gecko.model.Tail
 
-class GeckoPersisted internal constructor(
-    private val gecko: Gecko,
-    private val database: GeckoDatabase
-) : Gecko {
+@AutoService(Gecko::class)
+class GeckoPersisted : GeckoThreadSwitching() {
 
-    internal constructor(
-        gecko: Gecko,
-        factory: GeckoDatabaseFactory
-    ) : this(
-        gecko,
-        factory.getDatabase()
-    )
-
-    constructor(
-        gecko: Gecko,
-        context: Context
-    ) : this(
-        gecko,
-        GeckoDatabaseFactory.getInstance(context)
-    )
-
+    private val database by lazy { GeckoDatabaseFactory.getInstance().getDatabase() }
     private val call by lazy { database.call() }
     private val request by lazy { database.request() }
     private val response by lazy { database.response() }
 
-    override fun process(metadata: NetworkMetadata): Tail = gecko.process(metadata).also {
+    override fun processAsync(metadata: NetworkMetadata) {
         database.runInTransaction {
-            val id = call.insert(it.asCall())
-            request.insert(metadata.request.asPersistedRequest(id))
-            response.insert(metadata.response.asPersistedResponse(id))
+            val id = call.insert(ByteData.from(metadata).toCall())
+            request.insert(metadata.request.snapshotRequest(id))
+            response.insert(metadata.response.snapshotResponse(id))
         }
     }
 

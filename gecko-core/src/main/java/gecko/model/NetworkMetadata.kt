@@ -1,11 +1,24 @@
 package gecko.model
 
+import com.google.auto.value.AutoValue
+
 /**
  * Helper class wrapping both Request and Response to a singular data entry.
  * @see Request
  * @see Response
  * */
-data class NetworkMetadata(
-    val request: Request,
-    val response: Response
-)
+@AutoValue
+abstract class NetworkMetadata {
+
+    abstract val request: Request
+    abstract val response: Response
+
+    companion object {
+
+        operator fun invoke(request: Request, response: Response): NetworkMetadata {
+            return AutoValue_NetworkMetadata(request, response)
+        }
+
+    }
+
+}

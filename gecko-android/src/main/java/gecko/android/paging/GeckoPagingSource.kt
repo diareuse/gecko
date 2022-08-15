@@ -1,9 +1,7 @@
 package gecko.android.paging
 
-import android.content.Context
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import gecko.android.GeckoDatabase
 import gecko.android.GeckoDatabaseFactory
 import gecko.android.model.GeckoMetadata
 import gecko.android.model.asGeckoMetadata
@@ -11,23 +9,9 @@ import gecko.android.selectSuspendCatching
 import gecko.android.tooling.nextKey
 import gecko.android.tooling.prevKey
 
-class GeckoPagingSource internal constructor(
-    database: GeckoDatabase
-) : PagingSource<Int, GeckoMetadata>() {
+class GeckoPagingSource : PagingSource<Int, GeckoMetadata>() {
 
-    internal constructor(
-        factory: GeckoDatabaseFactory
-    ) : this(
-        database = factory.getDatabase()
-    )
-
-    constructor(
-        context: Context
-    ) : this(
-        factory = GeckoDatabaseFactory.getInstance(context)
-    )
-
-    private val call by lazy { database.call() }
+    private val call by lazy { GeckoDatabaseFactory.getInstance().getDatabase().call() }
 
     override fun getRefreshKey(state: PagingState<Int, GeckoMetadata>): Int? {
         val anchor = state.anchorPosition ?: return null

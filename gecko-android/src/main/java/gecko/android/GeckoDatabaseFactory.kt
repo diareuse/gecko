@@ -10,11 +10,12 @@ internal interface GeckoDatabaseFactory {
 
         private var instance: GeckoDatabaseFactory? = null
 
-        @Suppress("ComplexRedundantLet")
-        fun getInstance(context: Context) = instance ?: synchronized(GeckoDatabaseFactory) {
-            instance ?: GeckoDatabaseFactoryDefault(context)
-                .let { GeckoDatabaseFactorySingle(it) }
-                .also { instance = it }
+        fun initialize(context: Context) {
+            instance = GeckoDatabaseFactoryDefault(context)
+        }
+
+        fun getInstance() = requireNotNull(instance) {
+            "Did you call initialize(Context)?"
         }
 
     }

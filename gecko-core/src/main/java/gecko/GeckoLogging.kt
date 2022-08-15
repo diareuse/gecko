@@ -1,27 +1,18 @@
 package gecko
 
+import com.google.auto.service.AutoService
+import gecko.model.ByteData
 import gecko.model.NetworkMetadata
-import gecko.model.Tail
-import gecko.model.asString
+import org.jetbrains.annotations.TestOnly
 
-/**
- * Uses [Logger] to send information about the request made with all the necessary information.
- * Can be injected to the flow at any time, that way it's not deterministic what the actually
- * logged information might be.
- * */
-class GeckoLogging(
-    private val source: Gecko,
-    private val logger: Logger
-) : Gecko {
+@AutoService(Gecko::class)
+class GeckoLogging : GeckoThreadSwitching() {
 
-    override fun process(metadata: NetworkMetadata): Tail {
-        return source.process(metadata).also {
-            val method = metadata.request.method
-            val url = metadata.request.url
-            val code = metadata.response.code
-            logger.log("-> $method | $code | $url")
-            logger.log(it.asString())
-        }
+    internal var logger: Logger = Logger
+        @TestOnly set
+
+    override fun processAsync(metadata: NetworkMetadata) {
+        logger.log(ByteData.from(metadata).value.decodeToString())
     }
 
 }

@@ -2,7 +2,6 @@ package gecko.android.model
 
 import androidx.room.*
 import gecko.android.adapter.HeadersConverter
-import gecko.model.AbstractGeckoModel
 import gecko.model.Headers
 
 @TypeConverters(HeadersConverter::class)
@@ -17,39 +16,26 @@ import gecko.model.Headers
         )
     ]
 )
-internal open class PersistedRequest(
+data class PersistedRequest(
     @PrimaryKey
     @ColumnInfo(name = "id_call")
-    open val idCall: Long = 0,
+    val idCall: Long,
 
     @ColumnInfo(name = "method")
-    open val method: String = "",
+    val method: String,
 
     @ColumnInfo(name = "url")
-    open val url: String = "",
+    val url: String,
 
     @ColumnInfo(name = "headers")
-    open val headers: Headers = emptySet(),
+    val headers: Headers,
 
     @ColumnInfo(name = "length")
-    open val length: Long = 0,
+    val length: Long,
 
     @ColumnInfo(name = "content_type")
-    open val contentType: String = "",
+    val contentType: String,
 
     @ColumnInfo(name = "body")
-    open val body: String = ""
-) : AbstractGeckoModel() {
-
-    override val properties
-        get() = sequenceOf(
-            ::idCall,
-            ::method,
-            ::url,
-            ::headers,
-            ::length,
-            ::contentType,
-            ::body
-        )
-
-}
+    val body: String
+)

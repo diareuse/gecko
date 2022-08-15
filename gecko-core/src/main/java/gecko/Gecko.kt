@@ -1,7 +1,7 @@
 package gecko
 
 import gecko.model.NetworkMetadata
-import gecko.model.Tail
+import gecko.util.loadServices
 
 /**
  * Gecko entry point. Uses given metadata to generate a result in a form of [Tail].
@@ -18,6 +18,16 @@ interface Gecko {
     /**
      * Manipulates either [metadata] or result of a previous step and returns the updated result.
      * */
-    fun process(metadata: NetworkMetadata): Tail
+    fun process(metadata: NetworkMetadata)
+
+    companion object : Gecko {
+
+        override fun process(metadata: NetworkMetadata) {
+            for (gecko in loadServices<Gecko>()) {
+                gecko.process(metadata)
+            }
+        }
+
+    }
 
 }

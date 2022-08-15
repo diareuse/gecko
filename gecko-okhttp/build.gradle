@@ -1,5 +1,7 @@
 plugins {
     id 'module-library'
+    id 'has-auto-service'
+    id 'has-auto-value'
 }
 
 dependencies {
