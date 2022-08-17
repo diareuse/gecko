@@ -4,6 +4,10 @@ import gecko.Logger
 import gecko.model.Request
 import gecko.model.RequestDecorated
 
+/**
+ * Logs request as soon as it gets created.
+ * Whenever is supplied with empty body, it give user feedback with `<empty-body>`.
+ * */
 internal class RequestLoggingSideEffect(
     origin: Request,
     logger: Logger = Logger

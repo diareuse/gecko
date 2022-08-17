@@ -2,24 +2,21 @@ package gecko
 
 import gecko.model.NetworkMetadata
 import gecko.util.loadServices
+import java.util.*
 
 /**
- * Gecko entry point. Uses given metadata to generate a result in a form of [Tail].
- *
- * It should always do at most one transformation and then return the result. The reason being that
- * upcoming versions may or may not cache the steps, therefore making the steps as granular as
- * possible is strongly suggested.
- *
- * Metadata can also be manipulated by former steps to allow for truncating or obfuscating
- * sensitive information.
+ * Gecko entry point. Uses given metadata to process given information.
  * */
 interface Gecko {
 
     /**
-     * Manipulates either [metadata] or result of a previous step and returns the updated result.
+     * Processes [metadata] supplied as a parameter.
      * */
     fun process(metadata: NetworkMetadata)
 
+    /**
+     * Static implementation uses [ServiceLoader] to find all [Gecko] service implementations.
+     * */
     companion object : Gecko {
 
         override fun process(metadata: NetworkMetadata) {

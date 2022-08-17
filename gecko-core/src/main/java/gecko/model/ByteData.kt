@@ -5,6 +5,9 @@ import gecko.model.adapter.asByteData
 import gecko.model.interceptor.ByteDataInterceptor
 import gecko.util.loadServices
 
+/**
+ * Wraps over [ByteArray] to create decorated steps invoked every time [value] is accessed.
+ * */
 @AutoValue
 abstract class ByteData {
 

@@ -6,6 +6,7 @@ import gecko.model.ByteData
 import gecko.model.ByteDataStage
 import org.jetbrains.annotations.TestOnly
 
+/** Logs [ByteData] and returns the input parameter intact. */
 @AutoService(ByteDataInterceptor::class)
 class ByteDataInterceptorLogging : ByteDataInterceptor {
 

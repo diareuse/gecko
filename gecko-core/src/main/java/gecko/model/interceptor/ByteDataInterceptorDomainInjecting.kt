@@ -5,6 +5,7 @@ import gecko.model.ByteData
 import gecko.model.ByteDataStage
 import org.jetbrains.annotations.TestOnly
 
+/** Wraps [ByteData] and returns an url with [domain]. */
 @AutoService(ByteDataInterceptor::class)
 class ByteDataInterceptorDomainInjecting : ByteDataInterceptor {
 

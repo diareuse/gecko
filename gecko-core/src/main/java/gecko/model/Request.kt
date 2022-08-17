@@ -5,10 +5,6 @@ import org.jetbrains.annotations.TestOnly
 
 /**
  * Common representation for a server Request.
- *
- * ### Warning!
- *
- * This object may be quite large, consider truncating [body] where possible.
  * */
 @AutoValue
 abstract class Request {
