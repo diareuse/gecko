@@ -3,8 +3,12 @@ package gecko.okhttp
 import gecko.Gecko
 import gecko.model.NetworkMetadata
 import okhttp3.Interceptor
+import org.jetbrains.annotations.TestOnly
 
 class GeckoInterceptor : Interceptor {
+
+    internal var gecko: Gecko = Gecko
+        @TestOnly set
 
     override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
         val request = chain.request()
@@ -13,7 +17,7 @@ class GeckoInterceptor : Interceptor {
         val geckoResponse = response.asResponse()
         val metadata = NetworkMetadata(geckoRequest, geckoResponse)
 
-        Gecko.process(metadata)
+        gecko.process(metadata)
 
         return response
     }

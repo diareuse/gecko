@@ -1,9 +1,11 @@
 package gecko.okhttp
 
+import gecko.Gecko
 import gecko.okhttp.model.*
 import okhttp3.Interceptor
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.mockito.kotlin.whenever
@@ -15,10 +17,14 @@ internal class GeckoInterceptorTest {
     @Mock
     private lateinit var chain: Interceptor.Chain
 
+    @Mock
+    private lateinit var gecko: Gecko
+
     @BeforeEach
     fun prepare() {
         MockitoAnnotations.openMocks(this).close()
         interceptor = GeckoInterceptor()
+        interceptor.gecko = gecko
     }
 
     @Test
@@ -27,14 +33,14 @@ internal class GeckoInterceptorTest {
         val response = response()
         val expected = networkMetadata(request, response)
         val okhttpRequest = request.toRequest()
+
         whenever(chain.request()).thenReturn(okhttpRequest)
         whenever(chain.proceed(okhttpRequest)).thenReturn(response.toResponse(okhttpRequest))
-        val listener = GeckoTest.addListener {
-            if (it != expected)
-                throw IllegalArgumentException()
+        whenever(gecko.process(expected)).thenThrow(TestSuccessful())
+
+        assertThrows<TestSuccessful> {
+            interceptor.intercept(chain)
         }
-        interceptor.intercept(chain)
-        GeckoTest.removeListener(listener)
     }
 
     @Test
@@ -55,12 +61,11 @@ internal class GeckoInterceptorTest {
         whenever(chain.proceed(okhttpRequest)).thenReturn(
             response.copy(body = responseBodyRaw).toResponse(okhttpRequest)
         )
-        val listener = GeckoTest.addListener {
-            if (it != expected)
-                throw IllegalArgumentException()
+        whenever(gecko.process(expected)).thenThrow(TestSuccessful())
+
+        assertThrows<TestSuccessful> {
+            interceptor.intercept(chain)
         }
-        interceptor.intercept(chain)
-        GeckoTest.removeListener(listener)
     }
 
 }
