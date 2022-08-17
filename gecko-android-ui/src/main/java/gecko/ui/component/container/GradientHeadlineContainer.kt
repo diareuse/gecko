@@ -34,9 +34,10 @@ internal fun GradientHeadlineContainer(
 ) {
     val gradient = Brush.horizontalGradient(listOf(startColor, endColor))
     Column(
-        modifier = modifier
+        modifier = Modifier
             .background(gradient, shape)
             .clip(shape)
+            .then(modifier)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             CompositionLocalProvider(

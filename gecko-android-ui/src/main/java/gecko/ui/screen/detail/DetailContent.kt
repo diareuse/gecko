@@ -5,19 +5,17 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CornerSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
-import com.google.accompanist.insets.LocalWindowInsets
-import com.google.accompanist.insets.rememberInsetsPaddingValues
 import gecko.android.model.GeckoData
 import gecko.ui.R
 import gecko.ui.component.call.CallOverview
@@ -26,6 +24,8 @@ import gecko.ui.component.tab.TabDefaults
 import gecko.ui.component.tab.TabRow
 import gecko.ui.component.toolbar.NavigationToolbar
 import gecko.ui.component.toolbar.ToolbarAction
+import gecko.ui.component.toolbar.canScroll
+import gecko.ui.component.toolbar.rememberScrollBehavior
 import gecko.ui.presentation.action.actionCopyUri
 import gecko.ui.presentation.action.actionOpenUri
 import gecko.ui.presentation.navigation.NavigationDefaults
@@ -54,6 +54,7 @@ private fun GeckoData.resolveRequestBody() = when (requestContentType) {
         requestBody.startsWith("{") -> JSONObject(requestBody).toString(2)
         else -> requestBody
     }
+
     else -> requestBody
 }
 
@@ -63,6 +64,7 @@ private fun GeckoData.resolveResponseBody() = when (responseContentType) {
         responseBody.startsWith("{") -> JSONObject(responseBody).toString(2)
         else -> responseBody
     }
+
     else -> responseBody
 }
 
@@ -90,16 +92,20 @@ private fun rememberContentType(
     }.orEmpty()
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun DetailContent(viewModel: DetailViewModel) {
     val metadata by viewModel.metadata.collectAsState()
     var selectedTabPosition by rememberSaveable { mutableStateOf(0) }
+    val state = rememberLazyListState()
+    val behavior = rememberScrollBehavior { state.canScroll }
 
     @Composable
     fun Toolbar() = DetailToolbar(
         metadata = metadata,
+        onCopyClick = actionCopyUri().unwrap(),
         onLinkClick = actionOpenUri().unwrap(),
-        onCopyClick = actionCopyUri().unwrap()
+        behavior = behavior
     )
 
     @Composable
@@ -159,31 +165,42 @@ internal fun DetailContent(viewModel: DetailViewModel) {
         )
     }
 
-    LazyColumn(
-        contentPadding = rememberInsetsPaddingValues(insets = LocalWindowInsets.current.navigationBars)
+    Scaffold(
+        modifier = Modifier.nestedScroll(behavior.nestedScrollConnection),
+        topBar = {
+            Toolbar()
+        }
     ) {
-        item { Toolbar() }
+        LazyColumn(
+            state = state,
+            contentPadding = it
+        ) {
 
-        val metadata = metadata
-        if (metadata != null)
-            item { Overview(metadata) }
+            val metadata = metadata
+            if (metadata != null)
+                item { Overview(metadata) }
 
-        item { Tabs() }
-        item { Headers(rememberHeaders(metadata, selectedTabPosition)) }
-        item { ContentType(rememberContentType(metadata, selectedTabPosition)) }
-        item { Body(rememberBody(metadata, selectedTabPosition)) }
+            item { Tabs() }
+            item { Headers(rememberHeaders(metadata, selectedTabPosition)) }
+            item { ContentType(rememberContentType(metadata, selectedTabPosition)) }
+            item { Body(rememberBody(metadata, selectedTabPosition)) }
+        }
     }
+
+
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun DetailToolbar(
     metadata: GeckoData?,
     onCopyClick: (Uri) -> Unit,
     onLinkClick: (Uri) -> Unit,
-    onNavigationClick: () -> Unit = NavigationDefaults.backClick()
+    onNavigationClick: () -> Unit = NavigationDefaults.backClick(),
+    behavior: TopAppBarScrollBehavior
 ) {
     NavigationToolbar(
-        title = "",
+        title = "Detail",
         onNavigationClick = onNavigationClick,
         actions = {
             DetailToolbarActions(
@@ -191,7 +208,8 @@ private fun DetailToolbar(
                 onCopyClick = onCopyClick,
                 onLinkClick = onLinkClick
             )
-        }
+        },
+        behavior = behavior
     )
 }
 

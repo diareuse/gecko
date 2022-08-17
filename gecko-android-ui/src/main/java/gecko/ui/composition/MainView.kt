@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import gecko.ui.component.navigation.Destinations
 import gecko.ui.presentation.navigation.ScreenNavigation
 import gecko.ui.presentation.navigation.composable
-import gecko.ui.presentation.theme.InsetsEffect
 import gecko.ui.presentation.theme.SystemUIEffect
 import gecko.ui.presentation.theme.ThemeEffect
 
@@ -22,13 +21,8 @@ internal fun MainView() {
     )
 
     @Composable
-    fun Insets() = InsetsEffect {
-        Navigation()
-    }
-
-    @Composable
     fun Theme() = ThemeEffect {
-        Insets()
+        Navigation()
     }
 
     Theme()
