@@ -45,14 +45,14 @@ internal fun CallOverview(
         headlineLeft = {
             HeadlineText(
                 text = method,
-                modifier = Modifier.padding(horizontal = 16.dp)
+                modifier = Modifier.padding(horizontal = 20.dp)
             )
         },
-        shape = MaterialTheme.shapes.medium,
+        shape = MaterialTheme.shapes.large,
         headlineRight = {
             HeadlineText(
                 text = code.toString(),
-                modifier = Modifier.padding(horizontal = 16.dp)
+                modifier = Modifier.padding(horizontal = 20.dp)
             )
         }
     ) {
@@ -60,7 +60,7 @@ internal fun CallOverview(
             modifier = Modifier
                 .fillMaxWidth(),
             shape = MaterialTheme.shapes.medium,
-            color = MaterialTheme.colorScheme.surfaceVariant
+            color = MaterialTheme.colorScheme.surface
         ) {
             Row(
                 modifier = Modifier.padding(16.dp, 12.dp),

@@ -49,7 +49,9 @@ internal fun GradientHeadlineContainer(
                 content = headlineRight
             )
         }
-        content()
+        Box(Modifier.padding(start = 4.dp, bottom = 4.dp, end = 4.dp)) {
+            content()
+        }
     }
 }
 
@@ -67,9 +69,11 @@ private fun GradientHeadlineContainerPreview() {
                 shape = MaterialTheme.shapes.medium,
                 color = MaterialTheme.colorScheme.surfaceVariant
             ) {
-                Spacer(modifier = Modifier
-                    .height(48.dp)
-                    .fillMaxWidth())
+                Spacer(
+                    modifier = Modifier
+                        .height(48.dp)
+                        .fillMaxWidth()
+                )
             }
         }
     }
