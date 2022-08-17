@@ -115,12 +115,12 @@ private fun DashboardList(
 }
 
 @Composable
-private operator fun PaddingValues.plus(other: PaddingValues): PaddingValues {
+operator fun PaddingValues.plus(other: PaddingValues): PaddingValues {
     val dir = LocalLayoutDirection.current
     return PaddingValues(
         start = calculateStartPadding(dir) + other.calculateStartPadding(dir),
         end = calculateEndPadding(dir) + other.calculateEndPadding(dir),
-        top = calculateTopPadding(),
-        bottom = calculateTopPadding()
+        top = calculateTopPadding() + other.calculateTopPadding(),
+        bottom = calculateTopPadding() + other.calculateTopPadding()
     )
 }

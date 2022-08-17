@@ -9,6 +9,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
@@ -26,6 +27,7 @@ import gecko.ui.presentation.action.actionCopyUri
 import gecko.ui.presentation.action.actionOpenUri
 import gecko.ui.presentation.navigation.NavigationDefaults
 import gecko.ui.presentation.unwrap
+import gecko.ui.screen.dashboard.plus
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -170,7 +172,8 @@ internal fun DetailContent(viewModel: DetailViewModel) {
     ) {
         LazyColumn(
             state = state,
-            contentPadding = it
+            contentPadding = it + PaddingValues(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             item { Headers(rememberHeaders(metadata, selectedTabPosition)) }
             item { ContentType(rememberContentType(metadata, selectedTabPosition)) }
@@ -249,14 +252,32 @@ internal fun TitledSection(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit
 ) {
-    Column(modifier = modifier.padding(16.dp)) {
+    val brush = Brush.sweepGradient(
+        listOf(
+            MaterialTheme.colorScheme.primaryContainer,
+            MaterialTheme.colorScheme.secondaryContainer
+        )
+    )
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .background(brush = brush, shape = MaterialTheme.shapes.large)
+    ) {
         Text(
-            modifier = Modifier.padding(horizontal = 16.dp),
-            text = title.uppercase(),
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+            text = title,
             style = MaterialTheme.typography.labelMedium
         )
-        Spacer(modifier = Modifier.height(8.dp))
-        content()
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 4.dp, end = 4.dp, bottom = 4.dp)
+                .background(MaterialTheme.colorScheme.surface, MaterialTheme.shapes.medium)
+        ) {
+            CompositionLocalProvider(LocalContentColor provides MaterialTheme.colorScheme.onSurface) {
+                content()
+            }
+        }
     }
 }
 
@@ -265,17 +286,10 @@ internal fun PreformattedBody(
     text: String,
     modifier: Modifier = Modifier
 ) {
-    Surface(
-        modifier = modifier,
-        color = MaterialTheme.colorScheme.surfaceVariant,
-        contentColor = MaterialTheme.colorScheme.onSurface,
-        shape = MaterialTheme.shapes.large
-    ) {
-        Text(
-            modifier = Modifier.padding(16.dp),
-            text = text,
-            fontFamily = FontFamily.Monospace,
-            style = MaterialTheme.typography.bodySmall
-        )
-    }
+    Text(
+        modifier = Modifier.padding(16.dp),
+        text = text,
+        fontFamily = FontFamily.Monospace,
+        style = MaterialTheme.typography.bodySmall
+    )
 }
