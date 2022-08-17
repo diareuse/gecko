@@ -1,6 +1,8 @@
 package gecko.model
 
 import com.google.auto.value.AutoValue
+import gecko.interceptor.ResponseInterceptor
+import gecko.util.loadServices
 import org.jetbrains.annotations.TestOnly
 
 /**
@@ -43,6 +45,14 @@ abstract class Response {
         ): Response = AutoValue_Response(
             code, message, protocol, headers, length, contentType, body
         )
+
+        fun wrap(response: Response): Response {
+            var out = response
+            for (interceptor in loadServices<ResponseInterceptor>()) {
+                out = interceptor.intercept(out)
+            }
+            return out
+        }
 
     }
 

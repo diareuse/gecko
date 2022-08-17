@@ -1,4 +1,4 @@
-package gecko.model.interceptor
+package gecko.interceptor
 
 import com.google.common.truth.Truth.assertThat
 import gecko.Logger

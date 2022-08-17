@@ -1,4 +1,4 @@
-package gecko.model.interceptor
+package gecko.interceptor
 
 import gecko.model.ByteData
 import gecko.model.ByteDataStage

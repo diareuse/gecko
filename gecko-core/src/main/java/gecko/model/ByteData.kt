@@ -1,8 +1,8 @@
 package gecko.model
 
 import com.google.auto.value.AutoValue
+import gecko.interceptor.ByteDataInterceptor
 import gecko.model.adapter.asByteData
-import gecko.model.interceptor.ByteDataInterceptor
 import gecko.util.loadServices
 
 /**

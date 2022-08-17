@@ -1,4 +1,4 @@
-package gecko.model.interceptor
+package gecko.interceptor
 
 import com.google.auto.service.AutoService
 import gecko.model.ByteData

@@ -1,6 +1,8 @@
 package gecko.model
 
 import com.google.auto.value.AutoValue
+import gecko.interceptor.RequestInterceptor
+import gecko.util.loadServices
 import org.jetbrains.annotations.TestOnly
 
 /**
@@ -40,6 +42,14 @@ abstract class Request {
         ): Request = AutoValue_Request(
             method, url, headers, length, contentType, body
         )
+
+        fun wrap(request: Request): Request {
+            var out = request
+            for (interceptor in loadServices<RequestInterceptor>()) {
+                out = interceptor.intercept(out)
+            }
+            return out
+        }
 
     }
 

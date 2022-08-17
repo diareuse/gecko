@@ -15,9 +15,10 @@ abstract class NetworkMetadata {
 
     companion object {
 
-        operator fun invoke(request: Request, response: Response): NetworkMetadata {
-            return AutoValue_NetworkMetadata(request, response)
-        }
+        operator fun invoke(request: Request, response: Response): NetworkMetadata = AutoValue_NetworkMetadata(
+            Request.wrap(request),
+            Response.wrap(response)
+        )
 
     }
 
