@@ -2,26 +2,22 @@ package gecko.ui.screen.detail
 
 import android.net.Uri
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import gecko.android.model.GeckoData
 import gecko.ui.R
 import gecko.ui.component.call.CallOverview
-import gecko.ui.component.tab.Tab
-import gecko.ui.component.tab.TabDefaults
-import gecko.ui.component.tab.TabRow
+import gecko.ui.component.tab.GeckoTab
+import gecko.ui.component.tab.GeckoTabRow
 import gecko.ui.component.toolbar.NavigationToolbar
 import gecko.ui.component.toolbar.ToolbarAction
 import gecko.ui.component.toolbar.canScroll
@@ -128,16 +124,9 @@ internal fun DetailContent(viewModel: DetailViewModel) {
     @Composable
     fun Tabs() {
         DetailTabs(
-            modifier = Modifier.padding(top = 16.dp),
+            modifier = Modifier.padding(top = 16.dp).padding(horizontal = 16.dp),
             selectedTab = selectedTabPosition,
             onSelectedTabChange = { selectedTabPosition = it }
-        )
-        Box(
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .fillMaxWidth()
-                .height(1.dp)
-                .background(MaterialTheme.colorScheme.surfaceVariant)
         )
     }
 
@@ -168,19 +157,21 @@ internal fun DetailContent(viewModel: DetailViewModel) {
     Scaffold(
         modifier = Modifier.nestedScroll(behavior.nestedScrollConnection),
         topBar = {
-            Toolbar()
+            Column(modifier = Modifier.background(MaterialTheme.colorScheme.surface)) {
+                Toolbar()
+
+                val metadata = metadata
+                if (metadata != null)
+                    Overview(metadata)
+
+                Tabs()
+            }
         }
     ) {
         LazyColumn(
             state = state,
             contentPadding = it
         ) {
-
-            val metadata = metadata
-            if (metadata != null)
-                item { Overview(metadata) }
-
-            item { Tabs() }
             item { Headers(rememberHeaders(metadata, selectedTabPosition)) }
             item { ContentType(rememberContentType(metadata, selectedTabPosition)) }
             item { Body(rememberBody(metadata, selectedTabPosition)) }
@@ -235,42 +226,19 @@ private fun DetailTabs(
     onSelectedTabChange: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    TabRow(
-        modifier = modifier.padding(horizontal = 16.dp),
-        selectedPosition = selectedTab,
-        indicator = {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(
-                        MaterialTheme.colorScheme.secondaryContainer,
-                        MaterialTheme.shapes.medium.copy(
-                            bottomEnd = CornerSize(0),
-                            bottomStart = CornerSize(0)
-                        )
-                    )
-            )
-        }
+    GeckoTabRow(
+        selectedTabIndex = selectedTab,
+        modifier = modifier,
     ) {
-        Tab(
-            modifier = Modifier
-                .clickable { onSelectedTabChange(TabRequest) }
-                .padding(16.dp, 4.dp),
+        GeckoTab(
             text = "Request",
-            selected = selectedTab == TabRequest,
-            styles = TabDefaults.textStyles(
-                selectedTextStyle = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
-            )
+            onClick = { onSelectedTabChange(TabRequest) },
+            selected = selectedTab == TabRequest
         )
-        Tab(
-            modifier = Modifier
-                .clickable { onSelectedTabChange(TabResponse) }
-                .padding(16.dp, 4.dp),
+        GeckoTab(
             text = "Response",
-            selected = selectedTab == TabResponse,
-            styles = TabDefaults.textStyles(
-                selectedTextStyle = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
-            )
+            onClick = { onSelectedTabChange(TabResponse) },
+            selected = selectedTab == TabResponse
         )
     }
 }

@@ -39,7 +39,6 @@ internal val AppTypography = Typography(
         letterSpacing = 0.sp,
     ),
     headlineMedium = TextStyle(
-        //
         fontFamily = Roboto,
         fontWeight = FontWeight.W900,
         fontSize = 28.sp,
@@ -54,7 +53,6 @@ internal val AppTypography = Typography(
         letterSpacing = 0.sp,
     ),
     titleLarge = TextStyle(
-        //
         fontFamily = Roboto,
         fontWeight = FontWeight.W700,
         fontSize = 22.sp,
@@ -70,7 +68,7 @@ internal val AppTypography = Typography(
     ),
     titleSmall = TextStyle(
         fontFamily = Roboto,
-        fontWeight = FontWeight.Medium,
+        fontWeight = FontWeight.W800,
         fontSize = 14.sp,
         lineHeight = 20.sp,
         letterSpacing = 0.1.sp,
