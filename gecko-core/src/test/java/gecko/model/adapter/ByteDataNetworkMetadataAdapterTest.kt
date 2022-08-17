@@ -7,7 +7,7 @@ import gecko.model.networkMetadata
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-class ByteDataNetworkMetadataAdapterTest {
+internal class ByteDataNetworkMetadataAdapterTest {
 
     private lateinit var metadata: NetworkMetadata
     private lateinit var byteData: ByteData

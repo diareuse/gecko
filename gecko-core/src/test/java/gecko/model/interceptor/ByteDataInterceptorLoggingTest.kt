@@ -11,7 +11,7 @@ import org.junit.jupiter.api.assertThrows
 import org.mockito.Mock
 import org.mockito.kotlin.whenever
 
-class ByteDataInterceptorLoggingTest : TestBlueprint {
+internal class ByteDataInterceptorLoggingTest : TestBlueprint {
 
     @Mock
     private lateinit var logger: Logger

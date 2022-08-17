@@ -5,7 +5,7 @@ import gecko.model.ByteData
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-class ByteDataCompressionDecoratorTest {
+internal class ByteDataCompressionDecoratorTest {
 
 
     private lateinit var data: ByteDataCompressionDecorator

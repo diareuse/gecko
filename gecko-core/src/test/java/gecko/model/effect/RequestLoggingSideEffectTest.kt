@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 import org.mockito.Mock
 import org.mockito.kotlin.whenever
 
-class RequestLoggingSideEffectTest : TestBlueprint {
+internal class RequestLoggingSideEffectTest : TestBlueprint {
 
     private lateinit var request: Request
 

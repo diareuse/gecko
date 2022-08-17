@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 import org.mockito.Mock
 import org.mockito.kotlin.whenever
 
-class ResponseLoggingSideEffectTest : TestBlueprint {
+internal class ResponseLoggingSideEffectTest : TestBlueprint {
 
     private lateinit var response: Response
 

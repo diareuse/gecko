@@ -19,12 +19,12 @@ internal class ByteDataInterceptorEncodingTest : TestBlueprint {
     }
 
     @Test
-    fun getStage() {
+    fun `matches stage`() {
         assertThat(interceptor.stage).isEqualTo(ByteDataStage.Encoding)
     }
 
     @Test
-    fun intercept() {
+    fun `returns encoded data`() {
         assertThat(interceptor.intercept(ByteData.from(""))).isInstanceOf(ByteDataBase64Decorator::class.java)
     }
 

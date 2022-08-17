@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 import org.mockito.Mock
 import org.mockito.kotlin.whenever
 
-class ByteDataBase64DecoratorTest : TestBlueprint {
+internal class ByteDataBase64DecoratorTest : TestBlueprint {
 
     @Mock
     private lateinit var encoder: Base64Encoder

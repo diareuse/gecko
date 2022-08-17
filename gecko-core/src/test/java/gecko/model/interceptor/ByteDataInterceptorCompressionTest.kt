@@ -8,7 +8,7 @@ import gecko.test.TestBlueprint
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-class ByteDataInterceptorCompressionTest : TestBlueprint {
+internal class ByteDataInterceptorCompressionTest : TestBlueprint {
 
     private lateinit var interceptor: ByteDataInterceptorCompression
 
