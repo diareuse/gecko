@@ -1,0 +1,12 @@
+plugins {
+    id 'module-android-library'
+    id 'has-auto-service'
+}
+
+dependencies {
+
+    implementation project(":gecko-core")
+    implementation "androidx.startup:startup-runtime:1.1.1"
+    implementation "androidx.core:core-ktx:1.8.0"
+
+}

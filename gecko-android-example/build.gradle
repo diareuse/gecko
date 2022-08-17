@@ -18,10 +18,11 @@ android {
 
 dependencies {
 
+    implementation project(":gecko-android-notification")
     implementation project(":gecko-android-ui")
     implementation project(":gecko-android")
     implementation project(":gecko-core")
 
-    implementation "androidx.appcompat:appcompat:1.4.2"
+    implementation "androidx.appcompat:appcompat:1.5.0"
 
 }
