@@ -7,6 +7,13 @@ import org.jetbrains.annotations.TestOnly
 
 class GeckoInterceptor : Interceptor {
 
+    @Deprecated("Use GeckoInterceptor() instead. It no longer requires explicit initialization")
+    constructor(gecko: Gecko) : this() {
+        this.gecko = gecko
+    }
+
+    constructor()
+
     internal var gecko: Gecko = Gecko
         @TestOnly set
 
