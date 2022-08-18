@@ -26,7 +26,7 @@ internal class ByteDataInterceptorDomainInjectingTest : TestBlueprint {
     fun `returns url data`() {
         val query = ByteData.from("query")
         val result = interceptor.intercept(query)
-        assertThat(result.value.toString()).isEqualTo("https://diareuse.github.io/gecko/?q=query")
+        assertThat(result.value.decodeToString()).isEqualTo("https://diareuse.github.io/gecko/?q=query")
     }
 
 }

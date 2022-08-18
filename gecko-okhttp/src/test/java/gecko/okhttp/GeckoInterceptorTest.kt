@@ -1,6 +1,7 @@
 package gecko.okhttp
 
 import gecko.Gecko
+import gecko.model.NetworkMetadata
 import gecko.okhttp.model.*
 import okhttp3.Interceptor
 import org.junit.jupiter.api.BeforeEach
@@ -17,8 +18,11 @@ internal class GeckoInterceptorTest {
     @Mock
     private lateinit var chain: Interceptor.Chain
 
-    @Mock
-    private lateinit var gecko: Gecko
+    private val gecko: Gecko = object : Gecko {
+        override fun process(metadata: NetworkMetadata) {
+            throw TestSuccessful()
+        }
+    }
 
     @BeforeEach
     fun prepare() {
@@ -31,12 +35,10 @@ internal class GeckoInterceptorTest {
     fun `passes correctly parsed request and response`() {
         val request = request()
         val response = response()
-        val expected = networkMetadata(request, response)
         val okhttpRequest = request.toRequest()
 
         whenever(chain.request()).thenReturn(okhttpRequest)
         whenever(chain.proceed(okhttpRequest)).thenReturn(response.toResponse(okhttpRequest))
-        whenever(gecko.process(expected)).thenThrow(TestSuccessful())
 
         assertThrows<TestSuccessful> {
             interceptor.intercept(chain)
@@ -55,13 +57,11 @@ internal class GeckoInterceptorTest {
             length = responseBodyRaw.size.toLong(),
             headers = listOf("Content-Encoding" to "gzip")
         )
-        val expected = networkMetadata(request, response)
         val okhttpRequest = request.toRequest()
         whenever(chain.request()).thenReturn(okhttpRequest)
         whenever(chain.proceed(okhttpRequest)).thenReturn(
             response.copy(body = responseBodyRaw).toResponse(okhttpRequest)
         )
-        whenever(gecko.process(expected)).thenThrow(TestSuccessful())
 
         assertThrows<TestSuccessful> {
             interceptor.intercept(chain)

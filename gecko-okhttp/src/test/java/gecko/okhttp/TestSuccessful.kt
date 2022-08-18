@@ -1,3 +1,3 @@
 package gecko.okhttp
 
-internal class TestSuccessful : Throwable()
+internal class TestSuccessful : RuntimeException()
