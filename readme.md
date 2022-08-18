@@ -60,6 +60,7 @@ dependencies {
     debugImplementation "io.github.diareuse:gecko-okhttp:+"
     debugImplementation "io.github.diareuse:gecko-android:+"
     debugImplementation "io.github.diareuse:gecko-android-ui:+"
+    debugImplementation "io.github.diareuse:gecko-android-notification:+"
 }
 ```
 
