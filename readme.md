@@ -6,6 +6,7 @@
    <a href="https://www.codacy.com/gh/diareuse/gecko/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=diareuse/gecko&amp;utm_campaign=Badge_Grade">
       <img src="https://app.codacy.com/project/badge/Grade/5492c78bdcb74d7eb4d17c835f953d14"/>
    </a>
+   <img src="https://img.shields.io/github/v/tag/diareuse/gecko?color=green"/>
 </p>
 
 Gecko is a toolchain allowing for somewhat more pleasant development of API features. Its own
