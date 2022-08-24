@@ -24,8 +24,7 @@ private class OkHttpResponseAdapter(
         get() = response.body?.contentLength() ?: 0
     override val contentType: String
         get() = response.body?.contentType().toString()
-    override val body: ByteArray
-        get() = response.body?.cloneBytes(response.isGzipped) ?: emptyByteArray
+    override val body: ByteArray = response.body?.cloneBytes(response.isGzipped) ?: emptyByteArray
 
     // ---
 
