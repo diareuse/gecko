@@ -8,21 +8,8 @@ import gecko.Logger
 class LoggerAndroid : Logger {
 
     override fun log(message: String) {
-        message.asMessageSequence().forEach {
+        message.chunkedSequence(4000).forEach {
             Log.v("Gecko!", it)
-        }
-    }
-
-    private fun String.asMessageSequence(lineLength: Int = 4096) = sequence {
-        var offset = 0
-        while (offset < length) {
-            val start = offset
-            val end = (offset + lineLength).coerceAtMost(length)
-            val string = slice(start until end)
-
-            offset += string.length
-
-            yield(string)
         }
     }
 

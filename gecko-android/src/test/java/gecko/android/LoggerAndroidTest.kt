@@ -32,8 +32,8 @@ class LoggerAndroidTest {
     fun `splits values`() {
         val message = (0 until 7000).joinToString(separator = "") { nextBytes(1).decodeToString() }
         expect(
-            "Gecko!" to message.take(4096),
-            "Gecko!" to message.drop(4096)
+            "Gecko!" to message.take(4000),
+            "Gecko!" to message.drop(4000)
         )
         logger.log(message)
     }
