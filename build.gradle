@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "com.vanniktech:gradle-maven-publish-plugin:0.25.3"
+        classpath "com.vanniktech:gradle-maven-publish-plugin:0.26.0"
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:1.9.10" // newer versions couldn't find init methods
         classpath "de.mannodermaus.gradle.plugins:android-junit5:1.10.0.0"
     }
