@@ -1,7 +1,7 @@
 dependencies {
 
-    compileOnly "com.google.auto.service:auto-service-annotations:1.0.1"
-    testCompileOnly "com.google.auto.service:auto-service-annotations:1.0.1"
-    kapt "com.google.auto.service:auto-service:1.0.1"
+    compileOnly libs.auto.service.annotations
+    testCompileOnly libs.auto.service.annotations
+    kapt libs.auto.service
 
 }

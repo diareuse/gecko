@@ -1,6 +1,6 @@
 package gecko.ui.presentation.navigation
 
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -12,5 +12,5 @@ internal fun NavGraphBuilder.composable(
 ) = composable(
     route = destination.route,
     arguments = destination.namedArguments.toList(),
-    content = screen
+    content = { screen(it) }
 )

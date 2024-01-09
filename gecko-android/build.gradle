@@ -4,13 +4,17 @@ plugins {
     id 'has-auto-service'
 }
 
+android {
+    namespace "gecko.android"
+}
+
 dependencies {
 
     implementation project(":gecko-core")
 
-    compileOnly "androidx.paging:paging-runtime:3.1.1"
-    implementation 'androidx.startup:startup-runtime:1.1.1'
-    implementation "androidx.room:room-runtime:2.4.3"
-    kapt "androidx.room:room-compiler:2.4.3"
+    compileOnly libs.androidx.paging.runtime
+    implementation libs.startup.runtime
+    implementation libs.androidx.room.runtime
+    kapt libs.androidx.room.compiler
 
 }

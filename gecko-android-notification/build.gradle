@@ -3,10 +3,14 @@ plugins {
     id 'has-auto-service'
 }
 
+android {
+    namespace "gecko.android.notification"
+}
+
 dependencies {
 
     implementation project(":gecko-core")
-    implementation "androidx.startup:startup-runtime:1.1.1"
-    implementation "androidx.core:core-ktx:1.8.0"
+    implementation libs.startup.runtime
+    implementation libs.androidx.core.ktx
 
 }

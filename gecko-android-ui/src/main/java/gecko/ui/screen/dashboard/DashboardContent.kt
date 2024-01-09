@@ -1,23 +1,20 @@
 package gecko.ui.screen.dashboard
 
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.lazy.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.*
+import androidx.compose.ui.input.nestedscroll.*
+import androidx.compose.ui.platform.*
+import androidx.compose.ui.res.*
+import androidx.compose.ui.unit.*
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.items
+import androidx.paging.compose.itemKey
 import gecko.android.model.GeckoMetadata
 import gecko.ui.R
 import gecko.ui.component.call.CallOverview
@@ -36,7 +33,8 @@ internal fun DashboardContent(viewModel: DashboardViewModel) {
     val state = rememberLazyListState()
     val behavior = rememberScrollBehavior { state.canScroll }
     Scaffold(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .nestedScroll(behavior.nestedScrollConnection),
         topBar = {
             DashboardToolbar(
@@ -100,8 +98,8 @@ private fun DashboardList(
         contentPadding = padding + PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        items(items, key = { it.id }) {
-            it ?: return@items
+        items(items.itemCount, key = items.itemKey { it.id }) {
+            val it = items[it] ?: return@items
             CallOverview(
                 modifier = Modifier
                     .clickable { onItemClick(it.id) },

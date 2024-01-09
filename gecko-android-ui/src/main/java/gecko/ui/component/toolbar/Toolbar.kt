@@ -1,18 +1,16 @@
 package gecko.ui.component.toolbar
 
-import androidx.compose.animation.core.DecayAnimationSpec
-import androidx.compose.animation.rememberSplineBasedDecay
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.animation.*
+import androidx.compose.animation.core.*
+import androidx.compose.foundation.*
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.*
+import androidx.compose.ui.*
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.res.*
+import androidx.compose.ui.tooling.preview.*
 import gecko.ui.R
 import gecko.ui.theme.GeckoTheme
 
@@ -50,16 +48,14 @@ internal fun Toolbar(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun rememberScrollBehavior(
-    spec: DecayAnimationSpec<Float> = rememberSplineBasedDecay<Float>(),
+    spec: DecayAnimationSpec<Float> = rememberSplineBasedDecay(),
     state: TopAppBarState = rememberTopAppBarState(),
     canScroll: () -> Boolean
-) = remember {
-    TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
-        spec,
-        canScroll = canScroll,
-        state = state
-    )
-}
+) = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
+    flingAnimationSpec = spec,
+    canScroll = canScroll,
+    state = state
+)
 
 val LazyListState.canScroll
     get() = layoutInfo.totalItemsCount > layoutInfo.visibleItemsInfo.size

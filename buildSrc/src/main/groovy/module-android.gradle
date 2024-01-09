@@ -6,24 +6,20 @@ plugins {
 
 android {
 
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         minSdk 16
-        targetSdk 33
+        targetSdk 34
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
-        freeCompilerArgs += [
-                "-P",
-                "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
-        ]
+        jvmTarget = '17'
     }
 
     buildFeatures {
@@ -40,9 +36,9 @@ android {
 
 dependencies {
 
-    implementation "org.jetbrains.kotlin:kotlin-reflect:1.7.10"
-    testImplementation "org.junit.jupiter:junit-jupiter-api:5.8.2"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.8.2"
-    testImplementation "org.junit.jupiter:junit-jupiter-params:5.8.2"
+    implementation libs.kotlin.reflect
+    testImplementation libs.junit.jupiter.api
+    testRuntimeOnly libs.junit.jupiter.engine
+    testImplementation libs.junit.jupiter.params
 
 }

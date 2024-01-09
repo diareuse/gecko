@@ -3,6 +3,7 @@ plugins {
 }
 
 android {
+    namespace "gecko.android.example"
 
     defaultConfig {
         applicationId = "gecko.android.example"
@@ -23,6 +24,6 @@ dependencies {
     implementation project(":gecko-android")
     implementation project(":gecko-core")
 
-    implementation "androidx.appcompat:appcompat:1.5.0"
+    implementation libs.androidx.appcompat
 
 }
