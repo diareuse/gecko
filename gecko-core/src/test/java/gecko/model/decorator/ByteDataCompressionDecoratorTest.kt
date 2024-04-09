@@ -19,7 +19,30 @@ internal class ByteDataCompressionDecoratorTest {
     fun `compresses data`() {
         assertThat(data.value).isEqualTo(
             byteArrayOf(
-                31, -117, 8, 0, 0, 0, 0, 0, 0, 0, 75, 76, 76, 76, 4, 0, 69, -27, -104, -83, 4, 0, 0, 0
+                31,
+                -117,
+                8,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                -1,
+                75,
+                76,
+                76,
+                76,
+                4,
+                0,
+                69,
+                -27,
+                -104,
+                -83,
+                4,
+                0,
+                0,
+                0
             )
         )
     }

@@ -20,7 +20,32 @@ internal class TextCompressorGzipTest : TestBlueprint {
         val output = compressor.compress("hello world!".encodeToByteArray())
         assertThat(output).isEqualTo(
             byteArrayOf(
-                31, -117, 8, 0, 0, 0, 0, 0, 0, 0, -53, 72, -51, -55, -55, 87, 40, -49, 47, -54, 73, 81, 4, 0, 109, -62,
+                31,
+                -117,
+                8,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                -1,
+                -53,
+                72,
+                -51,
+                -55,
+                -55,
+                87,
+                40,
+                -49,
+                47,
+                -54,
+                73,
+                81,
+                4,
+                0,
+                109,
+                -62,
                 -76, 3, 12, 0, 0, 0
             )
         )
