@@ -23,7 +23,7 @@ pagingCompose = "3.3.0"
 roomRuntime = "2.6.1"
 startupRuntime = "1.1.1"
 truth = "1.4.2"
-uiTooling = "1.6.7"
+uiTooling = "1.6.8"
 
 [libraries]
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
