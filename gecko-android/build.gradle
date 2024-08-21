@@ -15,6 +15,6 @@ dependencies {
     compileOnly libs.androidx.paging.runtime
     implementation libs.startup.runtime
     implementation libs.androidx.room.runtime
-    kapt libs.androidx.room.compiler
+    ksp libs.androidx.room.compiler
 
 }
