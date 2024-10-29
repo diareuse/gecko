@@ -33,6 +33,7 @@ private class DetailViewModelFactory(
     private val id: String
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        @Suppress("UNCHECKED_CAST")
         return DetailViewModel(id) as T
     }
 }
