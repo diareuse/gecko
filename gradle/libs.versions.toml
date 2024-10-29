@@ -1,7 +1,7 @@
 [versions]
 accompanistSystemuicontroller = "0.34.0"
 activityCompose = "1.9.3"
-androidJunit5 = "1.10.0.0"
+androidJunit5 = "1.11.2.0"
 appcompat = "1.7.0"
 autoServiceAnnotations = "1.1.1"
 autoValue = "1.11.0"
