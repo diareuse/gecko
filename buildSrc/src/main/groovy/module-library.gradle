@@ -19,6 +19,7 @@ dependencies {
     implementation libs.kotlin.reflect
     testImplementation libs.kotlin.test
     testImplementation libs.junit.jupiter
+    testRuntimeOnly libs.junit.platform.launcher
     testImplementation libs.truth
     testImplementation libs.mockito.junit.jupiter
     testImplementation libs.mockito.kotlin
