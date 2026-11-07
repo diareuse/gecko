@@ -1,13 +1,12 @@
 plugins {
-    id 'kotlin-android'
-    id 'kotlin-kapt'
+    id 'com.android.legacy-kapt'
     id 'kotlin-parcelize'
     id 'com.google.devtools.ksp'
 }
 
 android {
 
-    compileSdk 34
+    compileSdk 37
 
     defaultConfig {
         minSdk 16
@@ -17,10 +16,6 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_21
         targetCompatibility JavaVersion.VERSION_21
-    }
-
-    kotlinOptions {
-        jvmTarget = '21'
     }
 
     buildFeatures {
@@ -35,11 +30,16 @@ android {
 
 }
 
+kotlin {
+    jvmToolchain(21)
+}
+
 dependencies {
 
     implementation libs.kotlin.reflect
     testImplementation libs.junit.jupiter.api
     testRuntimeOnly libs.junit.jupiter.engine
+    testRuntimeOnly libs.junit.platform.launcher
     testImplementation libs.junit.jupiter.params
 
 }
